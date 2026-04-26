@@ -34,7 +34,7 @@ export const Route = createFileRoute("/auction/$slug")({
     if (!a) return { meta: [{ title: "Lot Not Found" }] };
     return {
       meta: [
-        { title: `${a.title} — ${a.lotNumber} | Maison & Heir` },
+        { title: `${a.title} — ${a.lotNumber} | The Gilded Auction House` },
         { name: "description", content: a.description.slice(0, 155) },
         { property: "og:title", content: `${a.title} — Live Auction` },
         { property: "og:description", content: a.description.slice(0, 155) },

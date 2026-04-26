@@ -100,10 +100,14 @@ function HomePage() {
               </a>
             </div>
 
-            <div className="mt-16 grid max-w-lg grid-cols-3 gap-6 border-t border-gold/20 pt-8">
-              <Stat value="₹1,200 Cr" label="Sold to Date" />
-              <Stat value="48,000+" label="Trusted Bidders" />
-              <Stat value="98%" label="Lots Sold" />
+            <div className="mt-16 max-w-lg border-t border-gold/20 pt-8">
+              <p className="text-[11px] uppercase tracking-[0.3em] text-gold">
+                Just Launched
+              </p>
+              <p className="mt-2 text-sm text-muted-foreground">
+                We're a newly founded house. Our first lots are listed below — be among the
+                very first bidders on the floor.
+              </p>
             </div>
           </div>
         </div>

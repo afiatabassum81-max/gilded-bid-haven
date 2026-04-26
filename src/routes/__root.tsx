@@ -36,7 +36,7 @@ export const Route = createRootRoute({
           "A newly founded digital auction house for antiques, classic cars and rare collectibles. Live bidding in INR.",
       },
       { name: "author", content: "The Gilded Auction House" },
-      { property: "og:title", content: "The Gilded Auction House — Luxury Auctions" },
+      { property: "og:title", content: "The Gilded Auction House — Luxury Auctions in India" },
       {
         property: "og:description",
         content: "Bid live on antiques, classic cars and rare collectibles.",
@@ -44,6 +44,12 @@ export const Route = createRootRoute({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "The Gilded Auction House — Luxury Auctions in India" },
+      { name: "description", content: "The Gilded Auction House is a luxury online marketplace for straight auctions of antiques, cars, and general items." },
+      { property: "og:description", content: "The Gilded Auction House is a luxury online marketplace for straight auctions of antiques, cars, and general items." },
+      { name: "twitter:description", content: "The Gilded Auction House is a luxury online marketplace for straight auctions of antiques, cars, and general items." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5fab332a-17e2-4c41-9c52-9dd62f770cb5/id-preview-d01856d9--7e6d485f-7134-4e94-bbc9-b3cef8775d5c.lovable.app-1777225556935.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5fab332a-17e2-4c41-9c52-9dd62f770cb5/id-preview-d01856d9--7e6d485f-7134-4e94-bbc9-b3cef8775d5c.lovable.app-1777225556935.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },

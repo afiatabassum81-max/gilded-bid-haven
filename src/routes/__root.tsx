@@ -29,19 +29,29 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Maison & Heir — Luxury Auction House" },
+      {
+        name: "description",
+        content:
+          "India's premier digital auction house for antiques, classic cars and rare collectibles. Live bidding in INR.",
+      },
+      { name: "author", content: "Maison & Heir" },
+      { property: "og:title", content: "Maison & Heir — Luxury Auction House" },
+      {
+        property: "og:description",
+        content: "Bid live on antiques, classic cars and rare collectibles.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: appCss,
+        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap",
       },
     ],
   }),

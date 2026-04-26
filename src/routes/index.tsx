@@ -156,9 +156,18 @@ function HomePage() {
           </div>
 
           {visible.length === 0 && (
-            <p className="py-20 text-center text-muted-foreground">
-              No lots in this department right now.
-            </p>
+            <div className="mt-4 rounded-sm border border-dashed border-gold/30 bg-card/40 px-6 py-20 text-center">
+              <p className="text-[11px] uppercase tracking-[0.3em] text-gold">
+                No Listings Yet
+              </p>
+              <h3 className="mt-3 font-serif text-3xl text-ivory">
+                The floor is being prepared.
+              </h3>
+              <p className="mx-auto mt-3 max-w-md text-sm text-muted-foreground">
+                Our first lots haven't been consigned yet. Check back soon, or get in
+                touch to consign your piece for the inaugural sale.
+              </p>
+            </div>
           )}
         </div>
       </section>
@@ -186,7 +195,7 @@ function HomePage() {
                     {categoryLabel[c]}
                   </h3>
                   <p className="mt-3 text-sm text-muted-foreground">
-                    {count} live {count === 1 ? "lot" : "lots"} now
+                    {count === 0 ? "Accepting consignments" : `${count} live ${count === 1 ? "lot" : "lots"} now`}
                   </p>
                   <ChevronRight className="absolute bottom-8 right-8 h-5 w-5 text-gold transition-transform group-hover:translate-x-1" />
                 </button>

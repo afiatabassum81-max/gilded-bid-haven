@@ -224,16 +224,6 @@ function HomePage() {
   );
 }
 
-function Stat({ value, label }: { value: string; label: string }) {
-  return (
-    <div>
-      <div className="font-serif text-2xl text-gold">{value}</div>
-      <div className="mt-1 text-[10px] uppercase tracking-widest text-muted-foreground">
-        {label}
-      </div>
-    </div>
-  );
-}
 
 function Trust({
   icon,

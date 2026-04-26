@@ -11,13 +11,13 @@ import { SiteFooter } from "@/components/SiteFooter";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Maison & Heir — Live Luxury Auctions in India" },
+      { title: "The Gilded Auction House — Live Luxury Auctions in India" },
       {
         name: "description",
         content:
-          "India's premier digital auction house. Bid live on antiques, classic motorcars and rare collectibles. Highest bid wins — settle securely in INR.",
+          "A newly founded auction house for antiques, classic motorcars and rare collectibles. Highest bid wins — settle securely in INR.",
       },
-      { property: "og:title", content: "Maison & Heir — Live Luxury Auctions" },
+      { property: "og:title", content: "The Gilded Auction House — Live Luxury Auctions" },
       {
         property: "og:description",
         content:

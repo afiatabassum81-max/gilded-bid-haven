@@ -29,14 +29,14 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Maison & Heir — Luxury Auction House" },
+      { title: "The Gilded Auction House — Luxury Auctions in India" },
       {
         name: "description",
         content:
-          "India's premier digital auction house for antiques, classic cars and rare collectibles. Live bidding in INR.",
+          "A newly founded digital auction house for antiques, classic cars and rare collectibles. Live bidding in INR.",
       },
-      { name: "author", content: "Maison & Heir" },
-      { property: "og:title", content: "Maison & Heir — Luxury Auction House" },
+      { name: "author", content: "The Gilded Auction House" },
+      { property: "og:title", content: "The Gilded Auction House — Luxury Auctions" },
       {
         property: "og:description",
         content: "Bid live on antiques, classic cars and rare collectibles.",

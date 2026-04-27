@@ -14,6 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
+      auction_listings: {
+        Row: {
+          admin_notes: string | null
+          category: string | null
+          created_at: string
+          description: string | null
+          id: string
+          image_url: string | null
+          seller_id: string
+          starting_price: number
+          status: Database["public"]["Enums"]["listing_status"]
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          seller_id: string
+          starting_price?: number
+          status?: Database["public"]["Enums"]["listing_status"]
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          admin_notes?: string | null
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          seller_id?: string
+          starting_price?: number
+          status?: Database["public"]["Enums"]["listing_status"]
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           age: number | null
@@ -80,6 +122,7 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "seller" | "buyer"
+      listing_status: "pending" | "approved" | "rejected" | "live" | "ended"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -208,6 +251,7 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "seller", "buyer"],
+      listing_status: ["pending", "approved", "rejected", "live", "ended"],
     },
   },
 } as const

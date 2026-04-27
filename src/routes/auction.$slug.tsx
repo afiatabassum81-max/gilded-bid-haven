@@ -22,6 +22,7 @@ import {
 import { Countdown } from "@/components/Countdown";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { LockedOverlay } from "@/components/LockedOverlay";
 
 export const Route = createFileRoute("/auction/$slug")({
   loader: ({ params }) => {
@@ -297,13 +298,15 @@ function AuctionDetail({ initial }: { initial: Auction }) {
                   </div>
                 </div>
 
-                <button
-                  type="button"
-                  onClick={placeBid}
-                  className="pulse-gold w-full rounded-sm bg-gradient-gold-strong py-4 font-serif text-lg uppercase tracking-widest text-primary-foreground shadow-gold transition-transform hover:-translate-y-0.5"
-                >
-                  Place Bid · {formatINR(bidInput)}
-                </button>
+                <LockedOverlay>
+                  <button
+                    type="button"
+                    onClick={placeBid}
+                    className="pulse-gold w-full rounded-sm bg-gradient-gold-strong py-4 font-serif text-lg uppercase tracking-widest text-primary-foreground shadow-gold transition-transform hover:-translate-y-0.5"
+                  >
+                    Place Bid · {formatINR(bidInput)}
+                  </button>
+                </LockedOverlay>
 
                 <p className="text-[11px] leading-relaxed text-muted-foreground">
                   By bidding you agree to the terms of sale. Bids are binding.

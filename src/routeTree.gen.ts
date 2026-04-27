@@ -10,7 +10,11 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VerifyRouteImport } from './routes/verify'
+import { Route as SellerRouteImport } from './routes/seller'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as BuyerRouteImport } from './routes/buyer'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuctionSlugRouteImport } from './routes/auction.$slug'
 
@@ -19,9 +23,29 @@ const VerifyRoute = VerifyRouteImport.update({
   path: '/verify',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SellerRoute = SellerRouteImport.update({
+  id: '/seller',
+  path: '/seller',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BuyerRoute = BuyerRouteImport.update({
+  id: '/buyer',
+  path: '/buyer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -37,34 +61,75 @@ const AuctionSlugRoute = AuctionSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/buyer': typeof BuyerRoute
+  '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
+  '/seller': typeof SellerRoute
   '/verify': typeof VerifyRoute
   '/auction/$slug': typeof AuctionSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/buyer': typeof BuyerRoute
+  '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
+  '/seller': typeof SellerRoute
   '/verify': typeof VerifyRoute
   '/auction/$slug': typeof AuctionSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/buyer': typeof BuyerRoute
+  '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
+  '/seller': typeof SellerRoute
   '/verify': typeof VerifyRoute
   '/auction/$slug': typeof AuctionSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/verify' | '/auction/$slug'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/buyer'
+    | '/dashboard'
+    | '/login'
+    | '/seller'
+    | '/verify'
+    | '/auction/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/verify' | '/auction/$slug'
-  id: '__root__' | '/' | '/login' | '/verify' | '/auction/$slug'
+  to:
+    | '/'
+    | '/admin'
+    | '/buyer'
+    | '/dashboard'
+    | '/login'
+    | '/seller'
+    | '/verify'
+    | '/auction/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/buyer'
+    | '/dashboard'
+    | '/login'
+    | '/seller'
+    | '/verify'
+    | '/auction/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
+  BuyerRoute: typeof BuyerRoute
+  DashboardRoute: typeof DashboardRoute
   LoginRoute: typeof LoginRoute
+  SellerRoute: typeof SellerRoute
   VerifyRoute: typeof VerifyRoute
   AuctionSlugRoute: typeof AuctionSlugRoute
 }
@@ -78,11 +143,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VerifyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/seller': {
+      id: '/seller'
+      path: '/seller'
+      fullPath: '/seller'
+      preLoaderRoute: typeof SellerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/buyer': {
+      id: '/buyer'
+      path: '/buyer'
+      fullPath: '/buyer'
+      preLoaderRoute: typeof BuyerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -104,7 +197,11 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
+  BuyerRoute: BuyerRoute,
+  DashboardRoute: DashboardRoute,
   LoginRoute: LoginRoute,
+  SellerRoute: SellerRoute,
   VerifyRoute: VerifyRoute,
   AuctionSlugRoute: AuctionSlugRoute,
 }

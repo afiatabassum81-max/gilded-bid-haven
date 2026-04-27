@@ -4,7 +4,8 @@ import { useState } from "react";
 import { useAuth } from "@/lib/auth-context";
 
 export function SiteHeader() {
-  const { user, profile, isVerified, loading, signOut } = useAuth();
+  const { user, profile, isVerified, loading, signOut, isAdmin, roles } = useAuth();
+  const isSeller = roles.includes("seller") || isAdmin;
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (

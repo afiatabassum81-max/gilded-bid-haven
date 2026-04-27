@@ -85,13 +85,38 @@ export function SiteHeader() {
                   className="absolute right-0 mt-2 w-56 rounded-sm border border-gold/30 bg-popover p-2 shadow-elegant"
                   onMouseLeave={() => setMenuOpen(false)}
                 >
-                  {!isVerified && (
+                  {!isVerified && !isAdmin && (
                     <Link
                       to="/verify"
                       onClick={() => setMenuOpen(false)}
                       className="block rounded-sm px-3 py-2 text-xs uppercase tracking-widest text-amber-warn hover:bg-card"
                     >
                       Complete verification →
+                    </Link>
+                  )}
+                  <Link
+                    to="/buyer"
+                    onClick={() => setMenuOpen(false)}
+                    className="block rounded-sm px-3 py-2 text-xs uppercase tracking-widest text-ivory hover:bg-card"
+                  >
+                    Buyer Dashboard
+                  </Link>
+                  {isSeller && (
+                    <Link
+                      to="/seller"
+                      onClick={() => setMenuOpen(false)}
+                      className="block rounded-sm px-3 py-2 text-xs uppercase tracking-widest text-ivory hover:bg-card"
+                    >
+                      Seller Dashboard
+                    </Link>
+                  )}
+                  {isAdmin && (
+                    <Link
+                      to="/admin"
+                      onClick={() => setMenuOpen(false)}
+                      className="block rounded-sm px-3 py-2 text-xs uppercase tracking-widest text-gold hover:bg-card"
+                    >
+                      Admin Panel
                     </Link>
                   )}
                   <button

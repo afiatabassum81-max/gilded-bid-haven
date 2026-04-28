@@ -1,6 +1,8 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { z } from "zod";
+import { Mail, CheckCircle2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 import { useAuth } from "@/lib/auth-context";
@@ -16,6 +18,29 @@ export const Route = createFileRoute("/login")({
   component: LoginPage,
 });
 
+const signInSchema = z.object({
+  email: z.string().trim().email("Enter a valid email").max(255),
+  password: z.string().min(6, "Password must be at least 6 characters").max(72),
+});
+
+const signUpSchema = signInSchema.extend({
+  fullName: z
+    .string()
+    .trim()
+    .min(2, "Name is required")
+    .max(80, "Name is too long"),
+  age: z.coerce
+    .number({ invalid_type_error: "Age must be a number" })
+    .int("Age must be a whole number")
+    .min(18, "You must be 18 or older")
+    .max(120, "Enter a valid age"),
+  phone: z
+    .string()
+    .trim()
+    .regex(/^\+?[0-9\s-]{7,18}$/, "Enter a valid phone number")
+    .max(20),
+});
+
 function LoginPage() {
   const { user, isVerified, loading } = useAuth();
   const navigate = useNavigate();
@@ -24,9 +49,11 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const [age, setAge] = useState("");
+  const [phone, setPhone] = useState("");
   const [busy, setBusy] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [confirmationSent, setConfirmationSent] = useState<string | null>(null);
 
-  // Redirect when signed in
   useEffect(() => {
     if (loading) return;
     if (user) {
@@ -36,31 +63,76 @@ function LoginPage() {
 
   const handleEmail = async (e: React.FormEvent) => {
     e.preventDefault();
-    setBusy(true);
-    try {
-      if (mode === "signup") {
-        const ageNum = age ? parseInt(age, 10) : null;
+    setErrors({});
+
+    if (mode === "signup") {
+      const parsed = signUpSchema.safeParse({ email, password, fullName, age, phone });
+      if (!parsed.success) {
+        const fieldErrors: Record<string, string> = {};
+        parsed.error.issues.forEach((i) => {
+          fieldErrors[i.path[0] as string] = i.message;
+        });
+        setErrors(fieldErrors);
+        return;
+      }
+      setBusy(true);
+      try {
         const { data, error } = await supabase.auth.signUp({
-          email,
-          password,
+          email: parsed.data.email,
+          password: parsed.data.password,
           options: {
-            emailRedirectTo: window.location.origin,
-            data: { full_name: fullName },
+            emailRedirectTo: `${window.location.origin}/verify`,
+            data: {
+              full_name: parsed.data.fullName,
+              age: String(parsed.data.age),
+              phone: parsed.data.phone,
+            },
           },
         });
         if (error) throw error;
-        // Persist age on the profile (trigger creates row with name+email)
-        if (data.user && ageNum) {
-          await supabase.from("profiles").update({ age: ageNum, full_name: fullName }).eq("id", data.user.id);
+
+        // No session means email confirmation is required
+        if (!data.session) {
+          setConfirmationSent(parsed.data.email);
+        } else {
+          toast.success("Account created — proceeding to verification.");
         }
-        toast.success("Account created — proceeding to verification.");
-      } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) throw error;
+      } catch (err) {
+        toast.error(err instanceof Error ? err.message : "Sign-up failed");
+      } finally {
+        setBusy(false);
+      }
+      return;
+    }
+
+    // Sign in
+    const parsed = signInSchema.safeParse({ email, password });
+    if (!parsed.success) {
+      const fieldErrors: Record<string, string> = {};
+      parsed.error.issues.forEach((i) => {
+        fieldErrors[i.path[0] as string] = i.message;
+      });
+      setErrors(fieldErrors);
+      return;
+    }
+    setBusy(true);
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email: parsed.data.email,
+        password: parsed.data.password,
+      });
+      if (error) {
+        if (error.message.toLowerCase().includes("email not confirmed")) {
+          toast.error("Please confirm your email — check your inbox for the link.");
+        } else if (error.message.toLowerCase().includes("invalid login")) {
+          toast.error("Wrong email or password.");
+        } else {
+          toast.error(error.message);
+        }
+        return;
       }
     } catch (err) {
-      const msg = err instanceof Error ? err.message : "Authentication failed";
-      toast.error(msg);
+      toast.error(err instanceof Error ? err.message : "Sign-in failed");
     } finally {
       setBusy(false);
     }
@@ -77,13 +149,73 @@ function LoginPage() {
         setBusy(false);
         return;
       }
-      // either redirected (browser navigates) or tokens set (effect handles redirect)
     } catch (err) {
-      const msg = err instanceof Error ? err.message : "Google sign-in failed";
-      toast.error(msg);
+      toast.error(err instanceof Error ? err.message : "Google sign-in failed");
       setBusy(false);
     }
   };
+
+  const resendConfirmation = async () => {
+    if (!confirmationSent) return;
+    setBusy(true);
+    try {
+      const { error } = await supabase.auth.resend({
+        type: "signup",
+        email: confirmationSent,
+        options: { emailRedirectTo: `${window.location.origin}/verify` },
+      });
+      if (error) throw error;
+      toast.success("Confirmation email re-sent.");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Could not resend email");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  // Confirmation-sent view
+  if (confirmationSent) {
+    return (
+      <div className="min-h-screen bg-background">
+        <SiteHeader />
+        <main className="mx-auto flex max-w-md flex-col px-6 py-16">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-gold/40 bg-card">
+            <Mail className="h-6 w-6 text-gold" />
+          </div>
+          <h1 className="mt-6 text-center font-serif text-3xl text-ivory">Check your inbox</h1>
+          <p className="mt-3 text-center text-sm leading-relaxed text-muted-foreground">
+            We've sent a confirmation link to{" "}
+            <span className="text-ivory">{confirmationSent}</span>. Click it to activate your account,
+            then sign in.
+          </p>
+          <div className="mt-8 space-y-2 rounded-sm border border-border bg-card/40 p-4 text-xs text-muted-foreground">
+            <Bullet text="Confirm your email by clicking the link" />
+            <Bullet text="Sign in with your password" />
+            <Bullet text="Verify on WhatsApp to unlock bidding" />
+          </div>
+          <button
+            type="button"
+            onClick={resendConfirmation}
+            disabled={busy}
+            className="mt-6 text-center text-xs uppercase tracking-widest text-muted-foreground hover:text-gold disabled:opacity-50"
+          >
+            Didn't get it? Resend confirmation
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setConfirmationSent(null);
+              setMode("signin");
+              setPassword("");
+            }}
+            className="mt-3 text-center text-xs uppercase tracking-widest text-gold"
+          >
+            ← Back to sign in
+          </button>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -96,15 +228,25 @@ function LoginPage() {
         <p className="mt-2 text-sm text-muted-foreground">
           {mode === "signin"
             ? "Sign in to bid, watch lots, and consign."
-            : "Create an account, then verify via WhatsApp to start bidding."}
+            : "Create an account, confirm your email, then verify via WhatsApp to start bidding."}
         </p>
+
+        {/* Mode segmented control */}
+        <div className="mt-8 grid grid-cols-2 rounded-sm border border-gold/30 bg-card p-1">
+          <SegmentBtn active={mode === "signin"} onClick={() => setMode("signin")}>
+            Sign in
+          </SegmentBtn>
+          <SegmentBtn active={mode === "signup"} onClick={() => setMode("signup")}>
+            Create account
+          </SegmentBtn>
+        </div>
 
         {/* Google */}
         <button
           type="button"
           onClick={handleGoogle}
           disabled={busy}
-          className="mt-8 inline-flex w-full items-center justify-center gap-3 rounded-sm border border-gold/40 bg-card px-4 py-3 text-sm text-ivory transition-colors hover:border-gold disabled:opacity-50"
+          className="mt-5 inline-flex w-full items-center justify-center gap-3 rounded-sm border border-gold/40 bg-card px-4 py-3 text-sm text-ivory transition-colors hover:border-gold disabled:opacity-50"
         >
           <GoogleIcon />
           Continue with Google
@@ -116,7 +258,7 @@ function LoginPage() {
           <div className="h-px flex-1 bg-border" />
         </div>
 
-        <form onSubmit={handleEmail} className="space-y-3">
+        <form onSubmit={handleEmail} className="space-y-3" noValidate>
           {mode === "signup" && (
             <>
               <Field
@@ -124,16 +266,29 @@ function LoginPage() {
                 value={fullName}
                 onChange={setFullName}
                 placeholder="Rahul Mehta"
-                required
+                error={errors.fullName}
+                autoComplete="name"
               />
-              <Field
-                label="Age"
-                type="number"
-                value={age}
-                onChange={setAge}
-                placeholder="28"
-                required
-              />
+              <div className="grid grid-cols-2 gap-3">
+                <Field
+                  label="Age"
+                  type="number"
+                  value={age}
+                  onChange={setAge}
+                  placeholder="28"
+                  error={errors.age}
+                  inputMode="numeric"
+                />
+                <Field
+                  label="Phone"
+                  type="tel"
+                  value={phone}
+                  onChange={setPhone}
+                  placeholder="+91 98765 43210"
+                  error={errors.phone}
+                  autoComplete="tel"
+                />
+              </div>
             </>
           )}
           <Field
@@ -142,33 +297,33 @@ function LoginPage() {
             value={email}
             onChange={setEmail}
             placeholder="you@example.com"
-            required
+            error={errors.email}
+            autoComplete="email"
           />
           <Field
             label="Password"
             type="password"
             value={password}
             onChange={setPassword}
-            placeholder="••••••••"
-            required
+            placeholder="Min. 6 characters"
+            error={errors.password}
+            autoComplete={mode === "signin" ? "current-password" : "new-password"}
           />
 
           <button
             type="submit"
             disabled={busy}
-            className="mt-4 w-full rounded-sm bg-gradient-gold-strong px-4 py-3 text-sm uppercase tracking-widest text-primary-foreground shadow-gold transition-transform hover:-translate-y-0.5 disabled:opacity-50"
+            className="!mt-5 w-full rounded-sm bg-gradient-gold-strong px-4 py-3 text-sm uppercase tracking-widest text-primary-foreground shadow-gold transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {busy ? "Please wait…" : mode === "signin" ? "Sign In" : "Create Account"}
           </button>
         </form>
 
-        <button
-          type="button"
-          onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
-          className="mt-6 text-center text-xs uppercase tracking-widest text-muted-foreground hover:text-gold"
-        >
-          {mode === "signin" ? "New here? Open an account →" : "Have an account? Sign in →"}
-        </button>
+        {mode === "signup" && (
+          <p className="mt-4 text-center text-[11px] leading-relaxed text-muted-foreground">
+            By creating an account you agree to our terms. We'll email you a confirmation link.
+          </p>
+        )}
 
         <Link
           to="/"
@@ -181,20 +336,57 @@ function LoginPage() {
   );
 }
 
+function SegmentBtn({
+  active,
+  onClick,
+  children,
+}: {
+  active: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`rounded-sm py-2 text-[11px] uppercase tracking-widest transition-colors ${
+        active
+          ? "bg-gradient-gold-strong text-primary-foreground shadow-gold"
+          : "text-muted-foreground hover:text-ivory"
+      }`}
+    >
+      {children}
+    </button>
+  );
+}
+
+function Bullet({ text }: { text: string }) {
+  return (
+    <div className="flex items-start gap-2">
+      <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-gold" />
+      <span>{text}</span>
+    </div>
+  );
+}
+
 function Field({
   label,
   value,
   onChange,
   type = "text",
   placeholder,
-  required,
+  error,
+  autoComplete,
+  inputMode,
 }: {
   label: string;
   value: string;
   onChange: (v: string) => void;
   type?: string;
   placeholder?: string;
-  required?: boolean;
+  error?: string;
+  autoComplete?: string;
+  inputMode?: "text" | "numeric" | "tel" | "email";
 }) {
   return (
     <label className="block">
@@ -204,9 +396,13 @@ function Field({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        required={required}
-        className="mt-2 w-full rounded-sm border border-border bg-input px-3 py-2.5 text-sm text-ivory outline-none transition-colors focus:border-gold"
+        autoComplete={autoComplete}
+        inputMode={inputMode}
+        className={`mt-2 w-full rounded-sm border bg-input px-3 py-2.5 text-sm text-ivory outline-none transition-colors focus:border-gold ${
+          error ? "border-red-500/60" : "border-border"
+        }`}
       />
+      {error && <span className="mt-1 block text-[11px] text-red-400">{error}</span>}
     </label>
   );
 }

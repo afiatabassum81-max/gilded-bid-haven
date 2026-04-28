@@ -35,11 +35,13 @@ function VerifyPage() {
     const name = profile?.full_name ?? "—";
     const email = profile?.email ?? user?.email ?? "—";
     const age = profile?.age ?? "—";
+    const phone = profile?.phone ?? "—";
     const id = user?.id ?? "—";
     return `Hello, I'd like to verify my Gilded Auction House account.
 
 Name: ${name}
-Gmail: ${email}
+Email: ${email}
+Phone: ${phone}
 Age: ${age}
 User ID: ${id}`;
   }, [profile, user]);

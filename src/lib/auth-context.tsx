@@ -52,13 +52,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setSession(sess);
       setUser(sess?.user ?? null);
       if (sess?.user) {
+        setLoading(true);
         // defer to avoid deadlock
         setTimeout(() => {
-          void loadProfileAndRoles(sess.user.id);
+          void loadProfileAndRoles(sess.user.id).finally(() => setLoading(false));
         }, 0);
       } else {
         setProfile(null);
         setRoles([]);
+        setLoading(false);
       }
     });
 

@@ -145,10 +145,10 @@ function AdminPanel() {
               return (
                 <div
                   key={p.id}
-                  className="flex flex-wrap items-center justify-between gap-4 rounded-sm border border-gold/20 bg-card p-4"
+                  className="flex flex-col gap-3 rounded-sm border border-gold/20 bg-card p-4 md:flex-row md:items-start md:justify-between"
                 >
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-2">
+                  <div className="min-w-0 flex-1 space-y-2">
+                    <div className="flex flex-wrap items-center gap-2">
                       <span className="font-serif text-base text-ivory">
                         {p.full_name ?? "(no name)"}
                       </span>
@@ -163,7 +163,12 @@ function AdminPanel() {
                         </span>
                       )}
                     </div>
-                    <div className="text-xs text-muted-foreground">{p.email}</div>
+                    <div className="grid gap-1.5 text-xs text-muted-foreground sm:grid-cols-2">
+                      <InfoLine icon={<Mail className="h-3.5 w-3.5" />} value={p.email} />
+                      <InfoLine icon={<Phone className="h-3.5 w-3.5" />} value={p.phone} />
+                      <InfoLine icon={<Cake className="h-3.5 w-3.5" />} value={p.age ? `${p.age} yrs` : null} />
+                      <InfoLine icon={<MapPin className="h-3.5 w-3.5" />} value={p.address} />
+                    </div>
                   </div>
                   <div className="flex flex-wrap items-center gap-2">
                     <span

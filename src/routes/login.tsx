@@ -92,6 +92,7 @@ function LoginPage() {
               full_name: parsed.data.fullName,
               age: String(parsed.data.age),
               phone: parsed.data.phone,
+              address: parsed.data.address,
             },
           },
         });

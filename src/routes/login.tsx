@@ -55,6 +55,7 @@ function LoginPage() {
   const [fullName, setFullName] = useState("");
   const [age, setAge] = useState("");
   const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
   const [busy, setBusy] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [confirmationSent, setConfirmationSent] = useState<string | null>(null);

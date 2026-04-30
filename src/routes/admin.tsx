@@ -5,7 +5,7 @@ import { useAuth } from "@/lib/auth-context";
 import { supabase } from "@/integrations/supabase/client";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-import { Loader2, ShieldCheck, UserCheck, Check, X, Crown } from "lucide-react";
+import { Loader2, ShieldCheck, UserCheck, Check, X, Crown, Mail, Phone, MapPin, Cake } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
   component: AdminPanel,
@@ -16,6 +16,8 @@ type ProfileRow = {
   full_name: string | null;
   email: string | null;
   age: number | null;
+  phone: string | null;
+  address: string | null;
   verified: boolean;
   created_at: string;
 };
@@ -143,10 +145,10 @@ function AdminPanel() {
               return (
                 <div
                   key={p.id}
-                  className="flex flex-wrap items-center justify-between gap-4 rounded-sm border border-gold/20 bg-card p-4"
+                  className="flex flex-col gap-3 rounded-sm border border-gold/20 bg-card p-4 md:flex-row md:items-start md:justify-between"
                 >
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-2">
+                  <div className="min-w-0 flex-1 space-y-2">
+                    <div className="flex flex-wrap items-center gap-2">
                       <span className="font-serif text-base text-ivory">
                         {p.full_name ?? "(no name)"}
                       </span>
@@ -161,7 +163,12 @@ function AdminPanel() {
                         </span>
                       )}
                     </div>
-                    <div className="text-xs text-muted-foreground">{p.email}</div>
+                    <div className="grid gap-1.5 text-xs text-muted-foreground sm:grid-cols-2">
+                      <InfoLine icon={<Mail className="h-3.5 w-3.5" />} value={p.email} />
+                      <InfoLine icon={<Phone className="h-3.5 w-3.5" />} value={p.phone} />
+                      <InfoLine icon={<Cake className="h-3.5 w-3.5" />} value={p.age ? `${p.age} yrs` : null} />
+                      <InfoLine icon={<MapPin className="h-3.5 w-3.5" />} value={p.address} />
+                    </div>
                   </div>
                   <div className="flex flex-wrap items-center gap-2">
                     <span
@@ -241,6 +248,17 @@ function AdminPanel() {
         </p>
       </main>
       <SiteFooter />
+    </div>
+  );
+}
+
+function InfoLine({ icon, value }: { icon: React.ReactNode; value: string | null | undefined }) {
+  return (
+    <div className="flex items-center gap-1.5 truncate">
+      <span className="text-gold/70">{icon}</span>
+      <span className={value ? "truncate text-ivory/90" : "text-muted-foreground/60 italic"}>
+        {value || "—"}
+      </span>
     </div>
   );
 }

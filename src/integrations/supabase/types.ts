@@ -58,6 +58,7 @@ export type Database = {
       }
       profiles: {
         Row: {
+          address: string | null
           age: number | null
           created_at: string
           email: string | null
@@ -68,6 +69,7 @@ export type Database = {
           verified: boolean
         }
         Insert: {
+          address?: string | null
           age?: number | null
           created_at?: string
           email?: string | null
@@ -78,6 +80,7 @@ export type Database = {
           verified?: boolean
         }
         Update: {
+          address?: string | null
           age?: number | null
           created_at?: string
           email?: string | null

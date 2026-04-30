@@ -39,6 +39,11 @@ const signUpSchema = signInSchema.extend({
     .trim()
     .regex(/^\+?[0-9\s-]{7,18}$/, "Enter a valid phone number")
     .max(20),
+  address: z
+    .string()
+    .trim()
+    .min(5, "Address is required")
+    .max(300, "Address is too long"),
 });
 
 function LoginPage() {
@@ -50,6 +55,7 @@ function LoginPage() {
   const [fullName, setFullName] = useState("");
   const [age, setAge] = useState("");
   const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
   const [busy, setBusy] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [confirmationSent, setConfirmationSent] = useState<string | null>(null);
@@ -66,7 +72,7 @@ function LoginPage() {
     setErrors({});
 
     if (mode === "signup") {
-      const parsed = signUpSchema.safeParse({ email, password, fullName, age, phone });
+      const parsed = signUpSchema.safeParse({ email, password, fullName, age, phone, address });
       if (!parsed.success) {
         const fieldErrors: Record<string, string> = {};
         parsed.error.issues.forEach((i) => {
@@ -86,6 +92,7 @@ function LoginPage() {
               full_name: parsed.data.fullName,
               age: String(parsed.data.age),
               phone: parsed.data.phone,
+              address: parsed.data.address,
             },
           },
         });
@@ -289,6 +296,14 @@ function LoginPage() {
                   autoComplete="tel"
                 />
               </div>
+              <Field
+                label="Address"
+                value={address}
+                onChange={setAddress}
+                placeholder="Street, city, state, PIN"
+                error={errors.address}
+                autoComplete="street-address"
+              />
             </>
           )}
           <Field

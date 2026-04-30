@@ -10,6 +10,7 @@ export type Profile = {
   email: string | null;
   age: number | null;
   phone: string | null;
+  address: string | null;
   verified: boolean;
 };
 
@@ -38,7 +39,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const [{ data: prof }, { data: roleRows }] = await Promise.all([
       supabase
         .from("profiles")
-        .select("id, full_name, email, age, phone, verified")
+        .select("id, full_name, email, age, phone, address, verified")
         .eq("id", uid)
         .maybeSingle(),
       supabase.from("user_roles").select("role").eq("user_id", uid),

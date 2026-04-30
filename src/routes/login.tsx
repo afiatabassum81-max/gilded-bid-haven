@@ -296,6 +296,14 @@ function LoginPage() {
                   autoComplete="tel"
                 />
               </div>
+              <Field
+                label="Address"
+                value={address}
+                onChange={setAddress}
+                placeholder="Street, city, state, PIN"
+                error={errors.address}
+                autoComplete="street-address"
+              />
             </>
           )}
           <Field

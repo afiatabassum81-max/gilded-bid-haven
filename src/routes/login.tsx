@@ -39,6 +39,11 @@ const signUpSchema = signInSchema.extend({
     .trim()
     .regex(/^\+?[0-9\s-]{7,18}$/, "Enter a valid phone number")
     .max(20),
+  address: z
+    .string()
+    .trim()
+    .min(5, "Address is required")
+    .max(300, "Address is too long"),
 });
 
 function LoginPage() {

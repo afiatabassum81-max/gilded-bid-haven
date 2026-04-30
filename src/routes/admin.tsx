@@ -16,6 +16,8 @@ type ProfileRow = {
   full_name: string | null;
   email: string | null;
   age: number | null;
+  phone: string | null;
+  address: string | null;
   verified: boolean;
   created_at: string;
 };

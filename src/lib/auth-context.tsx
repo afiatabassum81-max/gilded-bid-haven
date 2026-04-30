@@ -10,6 +10,7 @@ export type Profile = {
   email: string | null;
   age: number | null;
   phone: string | null;
+  address: string | null;
   verified: boolean;
 };
 

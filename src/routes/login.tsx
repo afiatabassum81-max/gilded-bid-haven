@@ -72,7 +72,7 @@ function LoginPage() {
     setErrors({});
 
     if (mode === "signup") {
-      const parsed = signUpSchema.safeParse({ email, password, fullName, age, phone });
+      const parsed = signUpSchema.safeParse({ email, password, fullName, age, phone, address });
       if (!parsed.success) {
         const fieldErrors: Record<string, string> = {};
         parsed.error.issues.forEach((i) => {

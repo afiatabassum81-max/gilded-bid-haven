@@ -252,6 +252,17 @@ function AdminPanel() {
   );
 }
 
+function InfoLine({ icon, value }: { icon: React.ReactNode; value: string | null | undefined }) {
+  return (
+    <div className="flex items-center gap-1.5 truncate">
+      <span className="text-gold/70">{icon}</span>
+      <span className={value ? "truncate text-ivory/90" : "text-muted-foreground/60 italic"}>
+        {value || "—"}
+      </span>
+    </div>
+  );
+}
+
 function TabButton({
   active, onClick, children,
 }: { active: boolean; onClick: () => void; children: React.ReactNode }) {

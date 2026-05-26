@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Loader2, ShieldCheck, UserCheck, Check, X, Crown, Mail, Phone, MapPin, Cake } from "lucide-react";
+import { AdminAuctions } from "@/components/AdminAuctions";
 
 export const Route = createFileRoute("/admin")({
   component: AdminPanel,
@@ -37,7 +38,7 @@ type RoleRow = { user_id: string; role: "admin" | "seller" | "buyer" };
 function AdminPanel() {
   const { user, loading, isAdmin } = useAuth();
   const navigate = useNavigate();
-  const [tab, setTab] = useState<"users" | "listings">("users");
+  const [tab, setTab] = useState<"users" | "listings" | "auctions">("auctions");
   const [profiles, setProfiles] = useState<ProfileRow[]>([]);
   const [roles, setRoles] = useState<RoleRow[]>([]);
   const [listings, setListings] = useState<ListingRow[]>([]);

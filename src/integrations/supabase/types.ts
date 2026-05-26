@@ -14,47 +14,191 @@ export type Database = {
   }
   public: {
     Tables: {
+      auction_bids: {
+        Row: {
+          amount: number
+          auction_id: string
+          created_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          auction_id: string
+          created_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          auction_id?: string
+          created_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "auction_bids_auction_id_fkey"
+            columns: ["auction_id"]
+            isOneToOne: false
+            referencedRelation: "auction_listings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      auction_entries: {
+        Row: {
+          amount_paid: number
+          auction_id: string
+          id: string
+          paid_at: string
+          payment_ref: string | null
+          user_id: string
+        }
+        Insert: {
+          amount_paid: number
+          auction_id: string
+          id?: string
+          paid_at?: string
+          payment_ref?: string | null
+          user_id: string
+        }
+        Update: {
+          amount_paid?: number
+          auction_id?: string
+          id?: string
+          paid_at?: string
+          payment_ref?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "auction_entries_auction_id_fkey"
+            columns: ["auction_id"]
+            isOneToOne: false
+            referencedRelation: "auction_listings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       auction_listings: {
         Row: {
           admin_notes: string | null
           category: string | null
           created_at: string
           description: string | null
+          end_at: string | null
+          entry_fee: number
+          featured: boolean
+          gallery_urls: string[]
           id: string
           image_url: string | null
+          item_condition: string | null
+          rules: string | null
           seller_id: string
+          start_at: string | null
           starting_price: number
           status: Database["public"]["Enums"]["listing_status"]
+          terms: string | null
           title: string
           updated_at: string
+          video_url: string | null
+          winner_calculated_at: string | null
+          winner_user_id: string | null
+          winning_amount: number | null
         }
         Insert: {
           admin_notes?: string | null
           category?: string | null
           created_at?: string
           description?: string | null
+          end_at?: string | null
+          entry_fee?: number
+          featured?: boolean
+          gallery_urls?: string[]
           id?: string
           image_url?: string | null
+          item_condition?: string | null
+          rules?: string | null
           seller_id: string
+          start_at?: string | null
           starting_price?: number
           status?: Database["public"]["Enums"]["listing_status"]
+          terms?: string | null
           title: string
           updated_at?: string
+          video_url?: string | null
+          winner_calculated_at?: string | null
+          winner_user_id?: string | null
+          winning_amount?: number | null
         }
         Update: {
           admin_notes?: string | null
           category?: string | null
           created_at?: string
           description?: string | null
+          end_at?: string | null
+          entry_fee?: number
+          featured?: boolean
+          gallery_urls?: string[]
           id?: string
           image_url?: string | null
+          item_condition?: string | null
+          rules?: string | null
           seller_id?: string
+          start_at?: string | null
           starting_price?: number
           status?: Database["public"]["Enums"]["listing_status"]
+          terms?: string | null
           title?: string
           updated_at?: string
+          video_url?: string | null
+          winner_calculated_at?: string | null
+          winner_user_id?: string | null
+          winning_amount?: number | null
         }
         Relationships: []
+      }
+      auction_winners: {
+        Row: {
+          auction_id: string
+          calculated_at: string
+          frequency_breakdown: Json
+          id: string
+          total_bids: number
+          total_participants: number
+          winner_user_id: string
+          winning_amount: number
+        }
+        Insert: {
+          auction_id: string
+          calculated_at?: string
+          frequency_breakdown: Json
+          id?: string
+          total_bids: number
+          total_participants: number
+          winner_user_id: string
+          winning_amount: number
+        }
+        Update: {
+          auction_id?: string
+          calculated_at?: string
+          frequency_breakdown?: Json
+          id?: string
+          total_bids?: number
+          total_participants?: number
+          winner_user_id?: string
+          winning_amount?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "auction_winners_auction_id_fkey"
+            columns: ["auction_id"]
+            isOneToOne: true
+            referencedRelation: "auction_listings"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
@@ -118,6 +262,15 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      calculate_auction_winner: {
+        Args: { _auction_id: string }
+        Returns: {
+          total_bids: number
+          total_participants: number
+          winner_user_id: string
+          winning_amount: number
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

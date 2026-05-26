@@ -38,7 +38,7 @@ type RoleRow = { user_id: string; role: "admin" | "seller" | "buyer" };
 function AdminPanel() {
   const { user, loading, isAdmin } = useAuth();
   const navigate = useNavigate();
-  const [tab, setTab] = useState<"users" | "listings">("users");
+  const [tab, setTab] = useState<"users" | "listings" | "auctions">("auctions");
   const [profiles, setProfiles] = useState<ProfileRow[]>([]);
   const [roles, setRoles] = useState<RoleRow[]>([]);
   const [listings, setListings] = useState<ListingRow[]>([]);

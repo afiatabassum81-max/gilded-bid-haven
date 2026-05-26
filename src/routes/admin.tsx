@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Loader2, ShieldCheck, UserCheck, Check, X, Crown, Mail, Phone, MapPin, Cake } from "lucide-react";
+import { AdminAuctions } from "@/components/AdminAuctions";
 
 export const Route = createFileRoute("/admin")({
   component: AdminPanel,

@@ -137,7 +137,11 @@ function AdminPanel() {
           </TabButton>
         </div>
 
-        {loadingData ? (
+        {tab === "auctions" ? (
+          <AdminAuctions />
+        ) : tab === "community" ? (
+          <AdminCommunity />
+        ) : loadingData ? (
           <div className="flex justify-center py-16">
             <Loader2 className="h-6 w-6 animate-spin text-gold" />
           </div>

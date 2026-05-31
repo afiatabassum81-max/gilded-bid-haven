@@ -14,6 +14,30 @@ export type Database = {
   }
   public: {
     Tables: {
+      announcements: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          published: boolean
+          title: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          published?: boolean
+          title: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          published?: boolean
+          title?: string
+        }
+        Relationships: []
+      }
       auction_bids: {
         Row: {
           amount: number
@@ -233,6 +257,93 @@ export type Database = {
           phone?: string | null
           updated_at?: string
           verified?: boolean
+        }
+        Relationships: []
+      }
+      site_content: {
+        Row: {
+          body: string | null
+          id: string
+          slug: string
+          title: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          body?: string | null
+          id?: string
+          slug: string
+          title?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          body?: string | null
+          id?: string
+          slug?: string
+          title?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      social_impact: {
+        Row: {
+          amount_contributed: number | null
+          created_at: string
+          description: string
+          icon: string | null
+          id: string
+          published: boolean
+          title: string
+        }
+        Insert: {
+          amount_contributed?: number | null
+          created_at?: string
+          description: string
+          icon?: string | null
+          id?: string
+          published?: boolean
+          title: string
+        }
+        Update: {
+          amount_contributed?: number | null
+          created_at?: string
+          description?: string
+          icon?: string | null
+          id?: string
+          published?: boolean
+          title?: string
+        }
+        Relationships: []
+      }
+      success_stories: {
+        Row: {
+          created_at: string
+          id: string
+          image_url: string | null
+          published: boolean
+          story: string
+          title: string
+          winner_name: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          published?: boolean
+          story: string
+          title: string
+          winner_name?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          published?: boolean
+          story?: string
+          title?: string
+          winner_name?: string | null
         }
         Relationships: []
       }

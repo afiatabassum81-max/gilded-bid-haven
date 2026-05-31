@@ -7,6 +7,7 @@ import { auctions, categoryLabel, type Category } from "@/lib/auctions";
 import { AuctionCard } from "@/components/AuctionCard";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { CommunitySections } from "@/components/CommunitySections";
 
 export const Route = createFileRoute("/")({
   head: () => ({

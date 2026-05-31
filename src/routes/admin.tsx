@@ -122,12 +122,18 @@ function AdminPanel() {
           </div>
         </div>
 
-        <div className="mt-8 flex gap-2 border-b border-gold/20">
+        <div className="mt-8 flex flex-wrap gap-2 border-b border-gold/20">
+          <TabButton active={tab === "auctions"} onClick={() => setTab("auctions")}>
+            Auctions
+          </TabButton>
           <TabButton active={tab === "users"} onClick={() => setTab("users")}>
             Users ({profiles.length})
           </TabButton>
           <TabButton active={tab === "listings"} onClick={() => setTab("listings")}>
             Listings ({listings.length})
+          </TabButton>
+          <TabButton active={tab === "community"} onClick={() => setTab("community")}>
+            Community
           </TabButton>
         </div>
 

@@ -229,6 +229,8 @@ function HomePage() {
         </div>
       </section>
 
+      <CommunitySections />
+
       <SiteFooter />
     </div>
   );

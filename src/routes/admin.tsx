@@ -7,6 +7,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Loader2, ShieldCheck, UserCheck, Check, X, Crown, Mail, Phone, MapPin, Cake } from "lucide-react";
 import { AdminAuctions } from "@/components/AdminAuctions";
+import { AdminCommunity } from "@/components/AdminCommunity";
 
 export const Route = createFileRoute("/admin")({
   component: AdminPanel,
@@ -38,7 +39,7 @@ type RoleRow = { user_id: string; role: "admin" | "seller" | "buyer" };
 function AdminPanel() {
   const { user, loading, isAdmin } = useAuth();
   const navigate = useNavigate();
-  const [tab, setTab] = useState<"users" | "listings" | "auctions">("auctions");
+  const [tab, setTab] = useState<"users" | "listings" | "auctions" | "community">("auctions");
   const [profiles, setProfiles] = useState<ProfileRow[]>([]);
   const [roles, setRoles] = useState<RoleRow[]>([]);
   const [listings, setListings] = useState<ListingRow[]>([]);
@@ -121,16 +122,26 @@ function AdminPanel() {
           </div>
         </div>
 
-        <div className="mt-8 flex gap-2 border-b border-gold/20">
+        <div className="mt-8 flex flex-wrap gap-2 border-b border-gold/20">
+          <TabButton active={tab === "auctions"} onClick={() => setTab("auctions")}>
+            Auctions
+          </TabButton>
           <TabButton active={tab === "users"} onClick={() => setTab("users")}>
             Users ({profiles.length})
           </TabButton>
           <TabButton active={tab === "listings"} onClick={() => setTab("listings")}>
             Listings ({listings.length})
           </TabButton>
+          <TabButton active={tab === "community"} onClick={() => setTab("community")}>
+            Community
+          </TabButton>
         </div>
 
-        {loadingData ? (
+        {tab === "auctions" ? (
+          <AdminAuctions />
+        ) : tab === "community" ? (
+          <AdminCommunity />
+        ) : loadingData ? (
           <div className="flex justify-center py-16">
             <Loader2 className="h-6 w-6 animate-spin text-gold" />
           </div>

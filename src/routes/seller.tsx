@@ -122,7 +122,7 @@ function SellerDashboard() {
                   <div>
                     <div className="font-serif text-lg text-ivory">{l.title}</div>
                     <div className="mt-1 text-xs text-muted-foreground">
-                      {l.category ?? "—"} · ₹{Number(l.starting_price).toLocaleString("en-IN")}
+                      {l.category ?? "—"}
                     </div>
                     {l.admin_notes && (
                       <div className="mt-2 text-xs text-amber-warn">Admin: {l.admin_notes}</div>

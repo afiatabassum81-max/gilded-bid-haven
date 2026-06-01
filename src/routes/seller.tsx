@@ -159,19 +159,24 @@ function ListingForm({ sellerId, onDone }: { sellerId: string; onDone: () => voi
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  const [price, setPrice] = useState("");
+  const [entryFee, setEntryFee] = useState("100");
   const [imageUrl, setImageUrl] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const fee = Number(entryFee);
+    if (!Number.isFinite(fee) || fee < 100) {
+      toast.error("Entry fee must be at least ₹100");
+      return;
+    }
     setSubmitting(true);
     const { error } = await supabase.from("auction_listings").insert({
       seller_id: sellerId,
       title,
       description: description || null,
       category: category || null,
-      starting_price: Number(price) || 0,
+      entry_fee: fee,
       image_url: imageUrl || null,
     });
     setSubmitting(false);
@@ -190,7 +195,7 @@ function ListingForm({ sellerId, onDone }: { sellerId: string; onDone: () => voi
     >
       <Input label="Title *" value={title} onChange={setTitle} required />
       <Input label="Category" value={category} onChange={setCategory} placeholder="Antiques, Cars, Watches…" />
-      <Input label="Starting Price (INR) *" value={price} onChange={setPrice} type="number" required />
+      <Input label="Entry Fee (INR, min 100) *" value={entryFee} onChange={setEntryFee} type="number" required />
       <Input label="Image URL" value={imageUrl} onChange={setImageUrl} placeholder="https://…" />
       <div>
         <label className="text-xs uppercase tracking-widest text-muted-foreground">Description</label>

@@ -149,7 +149,7 @@ function NewAuctionForm({ onClose }: { onClose: () => void }) {
   const [busy, setBusy] = useState(false);
   const [form, setForm] = useState({
     title: "", description: "", category: "general", item_condition: "",
-    image_url: "", entry_fee: 100, starting_price: 0,
+    image_url: "", entry_fee: 100,
     start_at: "", end_at: "", rules: "", terms: "", featured: false,
   });
 

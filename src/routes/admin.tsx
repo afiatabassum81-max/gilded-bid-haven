@@ -232,7 +232,7 @@ function AdminPanel() {
                 <div>
                   <div className="font-serif text-base text-ivory">{l.title}</div>
                   <div className="text-xs text-muted-foreground">
-                    {l.category ?? "—"} · ₹{Number(l.starting_price).toLocaleString("en-IN")} ·
+                    {l.category ?? "—"} ·
                     Status: <span className="text-ivory">{l.status}</span>
                   </div>
                 </div>

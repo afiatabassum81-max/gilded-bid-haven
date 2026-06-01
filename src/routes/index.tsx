@@ -1,47 +1,54 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
-import { ChevronRight, Gavel, ShieldCheck, Sparkles } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { ChevronRight, Gavel, ShieldCheck, Sparkles, Loader2 } from "lucide-react";
 import heroImage from "@/assets/hero-auction.jpg";
 import marbleTexture from "@/assets/marble-texture.jpg";
-import { auctions, categoryLabel, type Category } from "@/lib/auctions";
-import { AuctionCard } from "@/components/AuctionCard";
+import { ReverseAuctionCard } from "@/components/ReverseAuctionCard";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { CommunitySections } from "@/components/CommunitySections";
+import { listPublicAuctions, type DbAuction } from "@/lib/db-auctions";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "The Gilded Auction House — Live Luxury Auctions in India" },
+      { title: "The Gilded Auction House — Reverse Auctions in India" },
       {
         name: "description",
         content:
-          "A newly founded auction house for antiques, classic motorcars and rare collectibles. Highest bid wins — settle securely in INR.",
+          "A community reverse-auction platform. The lowest unique bid wins. Pay a small entry fee, place one sealed bid, and let fairness decide.",
       },
-      { property: "og:title", content: "The Gilded Auction House — Live Luxury Auctions" },
+      { property: "og:title", content: "The Gilded Auction House — Reverse Auctions" },
       {
         property: "og:description",
         content:
-          "Bid live on antiques, classic motorcars and rare collectibles. Highest bid wins.",
+          "Lowest unique bid wins. One sealed bid per participant. Transparent, community-first auctions.",
       },
     ],
   }),
   component: HomePage,
 });
 
-const filters: { key: "all" | Category; label: string }[] = [
-  { key: "all", label: "All Lots" },
-  { key: "antiques", label: "Antiques" },
-  { key: "cars", label: "Classic & Luxury Cars" },
-  { key: "general", label: "General" },
-];
-
 function HomePage() {
-  const [active, setActive] = useState<"all" | Category>("all");
+  const [auctions, setAuctions] = useState<DbAuction[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [active, setActive] = useState<string>("all");
+
+  useEffect(() => {
+    void listPublicAuctions()
+      .then((rows) => setAuctions(rows))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const categories = useMemo(() => {
+    const set = new Set<string>();
+    auctions.forEach((a) => a.category && set.add(a.category));
+    return Array.from(set);
+  }, [auctions]);
 
   const visible = useMemo(
     () => (active === "all" ? auctions : auctions.filter((a) => a.category === active)),
-    [active],
+    [active, auctions],
   );
 
   return (
@@ -51,7 +58,6 @@ function HomePage() {
     >
       <SiteHeader />
 
-      {/* HERO */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
           <img
@@ -70,18 +76,19 @@ function HomePage() {
             <div className="mb-6 inline-flex items-center gap-2 rounded-sm border border-gold/40 bg-onyx/60 px-3 py-1.5 backdrop-blur">
               <span className="live-dot" />
               <span className="text-[11px] uppercase tracking-[0.3em] text-gold">
-                Live Auctions Now
+                Reverse Auctions, Live Now
               </span>
             </div>
 
             <h1 className="font-serif text-5xl leading-[1.05] text-ivory sm:text-6xl md:text-7xl">
-              Where the <span className="text-gradient-gold italic">extraordinary</span>{" "}
-              meets the discerning.
+              The <span className="text-gradient-gold italic">lowest unique</span>{" "}
+              bid wins.
             </h1>
 
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-              A curated marketplace for antiques, classic motorcars and singular
-              objects of beauty. Straight auction. Highest bid wins. Settled in INR.
+              Pay a small entry fee. Place one sealed bid. The bid with the fewest
+              participants — at the lowest amount — claims the lot. Transparent,
+              fair, community-first.
             </p>
 
             <div className="mt-10 flex flex-wrap items-center gap-4">
@@ -90,140 +97,100 @@ function HomePage() {
                 className="group inline-flex items-center gap-2 rounded-sm bg-gradient-gold-strong px-7 py-3.5 text-sm uppercase tracking-widest text-primary-foreground shadow-gold transition-transform hover:-translate-y-0.5"
               >
                 <Gavel className="h-4 w-4" />
-                Browse Live Lots
+                Browse Lots
                 <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </a>
               <a
                 href="#about"
                 className="inline-flex items-center gap-2 rounded-sm border border-gold/40 px-7 py-3.5 text-sm uppercase tracking-widest text-ivory transition-colors hover:border-gold hover:text-gold"
               >
-                Consign with Us
+                How It Works
               </a>
-            </div>
-
-            <div className="mt-16 max-w-lg border-t border-gold/20 pt-8">
-              <p className="text-[11px] uppercase tracking-[0.3em] text-gold">
-                Just Launched
-              </p>
-              <p className="mt-2 text-sm text-muted-foreground">
-                We're a newly founded house. Our first lots are listed below — be among the
-                very first bidders on the floor.
-              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CATEGORY FILTERS + GRID */}
       <section id="lots" className="relative py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-6">
           <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
             <div>
               <p className="text-[11px] uppercase tracking-[0.3em] text-gold">
-                Featured This Week
+                Open Auctions
               </p>
               <h2 className="mt-3 font-serif text-4xl text-ivory sm:text-5xl">
-                Live & Upcoming Lots
+                Current Lots
               </h2>
               <div className="mt-4 h-px w-24 bg-gold" />
             </div>
 
-            <div id="categories" className="flex flex-wrap gap-2">
-              {filters.map((f) => {
-                const isActive = active === f.key;
-                return (
-                  <button
-                    key={f.key}
-                    type="button"
-                    onClick={() => setActive(f.key)}
-                    className={
-                      "rounded-sm border px-4 py-2 text-xs uppercase tracking-widest transition-all " +
-                      (isActive
-                        ? "border-gold bg-gold text-primary-foreground shadow-gold"
-                        : "border-border text-muted-foreground hover:border-gold/60 hover:text-gold")
-                    }
-                  >
-                    {f.label}
-                  </button>
-                );
-              })}
+            {categories.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {(["all", ...categories]).map((c) => {
+                  const isActive = active === c;
+                  return (
+                    <button
+                      key={c}
+                      type="button"
+                      onClick={() => setActive(c)}
+                      className={
+                        "rounded-sm border px-4 py-2 text-xs uppercase tracking-widest transition-all " +
+                        (isActive
+                          ? "border-gold bg-gold text-primary-foreground shadow-gold"
+                          : "border-border text-muted-foreground hover:border-gold/60 hover:text-gold")
+                      }
+                    >
+                      {c === "all" ? "All Lots" : c}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
+          {loading ? (
+            <div className="mt-12 flex justify-center py-16">
+              <Loader2 className="h-6 w-6 animate-spin text-gold" />
             </div>
-          </div>
-
-          <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {visible.map((a) => (
-              <AuctionCard key={a.id} auction={a} />
-            ))}
-          </div>
-
-          {visible.length === 0 && (
-            <div className="mt-4 rounded-sm border border-dashed border-gold/30 bg-card/40 px-6 py-20 text-center">
+          ) : visible.length === 0 ? (
+            <div className="mt-12 rounded-sm border border-dashed border-gold/30 bg-card/40 px-6 py-20 text-center">
               <p className="text-[11px] uppercase tracking-[0.3em] text-gold">
-                No Listings Yet
+                No Open Auctions
               </p>
               <h3 className="mt-3 font-serif text-3xl text-ivory">
                 The floor is being prepared.
               </h3>
               <p className="mx-auto mt-3 max-w-md text-sm text-muted-foreground">
-                Our first lots haven't been consigned yet. Check back soon, or get in
-                touch to consign your piece for the inaugural sale.
+                New lots will open soon. Check back shortly.
               </p>
+            </div>
+          ) : (
+            <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              {visible.map((a) => (
+                <ReverseAuctionCard key={a.id} auction={a} />
+              ))}
             </div>
           )}
         </div>
       </section>
 
-      {/* CATEGORIES MARBLE STRIP */}
-      <section className="marble-overlay relative border-y border-gold/20 bg-card py-20">
-        <div className="relative mx-auto max-w-7xl px-6">
-          <div className="grid gap-8 md:grid-cols-3">
-            {(["antiques", "cars", "general"] as Category[]).map((c) => {
-              const count = auctions.filter((a) => a.category === c).length;
-              return (
-                <button
-                  key={c}
-                  type="button"
-                  onClick={() => {
-                    setActive(c);
-                    document.getElementById("lots")?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  className="group relative overflow-hidden rounded-sm border border-gold/30 bg-onyx/60 p-8 text-left backdrop-blur transition-all hover:border-gold hover:shadow-gold"
-                >
-                  <p className="text-[11px] uppercase tracking-[0.3em] text-gold">
-                    Department
-                  </p>
-                  <h3 className="mt-2 font-serif text-3xl text-ivory">
-                    {categoryLabel[c]}
-                  </h3>
-                  <p className="mt-3 text-sm text-muted-foreground">
-                    {count === 0 ? "Accepting consignments" : `${count} live ${count === 1 ? "lot" : "lots"} now`}
-                  </p>
-                  <ChevronRight className="absolute bottom-8 right-8 h-5 w-5 text-gold transition-transform group-hover:translate-x-1" />
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* TRUST */}
       <section id="about" className="py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-6">
           <div className="grid gap-12 md:grid-cols-3">
             <Trust
               icon={<Gavel className="h-6 w-6" />}
-              title="Straight Auction"
-              text="Highest bid at timer end wins. No reserves. No buyouts. The hammer falls only once."
+              title="Lowest Unique Wins"
+              text="The winning amount is the one with the fewest participants. Ties break to the lowest monetary value, then earliest timestamp."
             />
             <Trust
               icon={<ShieldCheck className="h-6 w-6" />}
-              title="Verified Provenance"
-              text="Every lot is vetted by our specialists. Authenticity and condition reports for every consignment."
+              title="One Sealed Bid"
+              text="Pay the entry fee once, place a single bid. Bids are private until the auction closes and the winner is announced."
             />
             <Trust
               icon={<Sparkles className="h-6 w-6" />}
-              title="Anti-Sniping Rules"
-              text="Bid in the final 30 seconds and the timer auto-extends by two minutes. Fair play, every time."
+              title="Transparent & Auditable"
+              text="Every bid is timestamped and immutable. Frequency breakdowns are published with each winner announcement."
             />
           </div>
         </div>
@@ -235,7 +202,6 @@ function HomePage() {
     </div>
   );
 }
-
 
 function Trust({
   icon,

@@ -149,7 +149,7 @@ function NewAuctionForm({ onClose }: { onClose: () => void }) {
   const [busy, setBusy] = useState(false);
   const [form, setForm] = useState({
     title: "", description: "", category: "general", item_condition: "",
-    image_url: "", entry_fee: 100, starting_price: 0,
+    image_url: "", entry_fee: 100,
     start_at: "", end_at: "", rules: "", terms: "", featured: false,
   });
 
@@ -186,10 +186,7 @@ function NewAuctionForm({ onClose }: { onClose: () => void }) {
             <Field label="Condition"><input className="w-full rounded-sm border border-border bg-onyx px-3 py-2 text-ivory" value={form.item_condition} onChange={(e) => upd("item_condition", e.target.value)} /></Field>
           </div>
           <Field label="Primary image URL"><input className="w-full rounded-sm border border-border bg-onyx px-3 py-2 text-ivory" value={form.image_url} onChange={(e) => upd("image_url", e.target.value)} /></Field>
-          <div className="grid grid-cols-2 gap-3">
-            <Field label="Entry fee (₹, min 100)"><input type="number" min={100} className="w-full rounded-sm border border-border bg-onyx px-3 py-2 text-ivory" value={form.entry_fee} onChange={(e) => upd("entry_fee", Number(e.target.value))} /></Field>
-            <Field label="Starting price (display)"><input type="number" className="w-full rounded-sm border border-border bg-onyx px-3 py-2 text-ivory" value={form.starting_price} onChange={(e) => upd("starting_price", Number(e.target.value))} /></Field>
-          </div>
+          <Field label="Entry fee (₹, min 100)"><input type="number" min={100} className="w-full rounded-sm border border-border bg-onyx px-3 py-2 text-ivory" value={form.entry_fee} onChange={(e) => upd("entry_fee", Number(e.target.value))} /></Field>
           <div className="grid grid-cols-2 gap-3">
             <Field label="Start date/time"><input type="datetime-local" className="w-full rounded-sm border border-border bg-onyx px-3 py-2 text-ivory" value={form.start_at} onChange={(e) => upd("start_at", e.target.value ? new Date(e.target.value).toISOString() : "")} /></Field>
             <Field label="End date/time (required)"><input type="datetime-local" className="w-full rounded-sm border border-border bg-onyx px-3 py-2 text-ivory" onChange={(e) => upd("end_at", e.target.value ? new Date(e.target.value).toISOString() : "")} /></Field>

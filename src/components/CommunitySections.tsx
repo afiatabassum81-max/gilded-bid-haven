@@ -42,8 +42,8 @@ export function CommunitySections() {
       {mission && (
         <section className="border-t border-gold/20 py-20 sm:py-28">
           <div className="mx-auto max-w-4xl px-6 text-center">
-            <p className="text-[11px] uppercase tracking-[0.3em] text-gold">{mission.title ?? "Our Mission"}</p>
-            <h2 className="mt-4 font-serif text-4xl text-ivory sm:text-5xl">A different kind of auction house.</h2>
+            <p className="text-[11px] uppercase tracking-[0.35em] text-gold">{mission.title ?? "Our Amanah"}</p>
+            <h2 className="mt-4 font-serif text-4xl text-ivory sm:text-5xl">A community, not a marketplace.</h2>
             <div className="mx-auto mt-6 h-px w-24 bg-gold" />
             <p className="mt-8 text-lg leading-relaxed text-muted-foreground">{mission.body}</p>
           </div>
@@ -53,9 +53,9 @@ export function CommunitySections() {
       {/* LIVE STATS */}
       <section className="border-y border-gold/20 bg-onyx/40 py-16">
         <div className="mx-auto grid max-w-5xl gap-8 px-6 sm:grid-cols-3">
-          <Stat value={stats.auctions} label="Lots Curated" />
+          <Stat value={stats.auctions} label="Lots Offered" />
           <Stat value={stats.participants} label="Community Members" />
-          <Stat value={`₹${stats.raised.toLocaleString("en-IN")}`} label="Contributed to Causes" />
+          <Stat value={`₹${stats.raised.toLocaleString("en-IN")}`} label="Given to Causes" />
         </div>
       </section>
 

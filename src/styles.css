@@ -147,6 +147,16 @@
 }
 
 @layer utilities {
+  .font-script {
+    font-family: var(--font-script);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .font-arabic {
+    font-family: var(--font-arabic);
+    direction: rtl;
+    font-feature-settings: "liga", "calt";
+  }
   .text-gold {
     color: var(--gold);
   }

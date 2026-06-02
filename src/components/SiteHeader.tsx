@@ -8,44 +8,54 @@ export function SiteHeader() {
   const isSeller = roles.includes("seller") || isAdmin;
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const navLinks: Array<{ href: string; label: string }> = [
+    { href: "/", label: "Home" },
+    { href: "/#causes", label: "Causes" },
+    { href: "/#zakat", label: "Zakat" },
+    { href: "/#sadaqah", label: "Sadaqah" },
+    { href: "/#community", label: "Community" },
+    { href: "/#about", label: "About" },
+  ];
+
   return (
-    <header className="sticky top-0 z-40 border-b border-gold/20 bg-background/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-40 border-b border-gold/20 bg-background/85 backdrop-blur-xl">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-6">
         <Link to="/" className="group flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-sm bg-gradient-gold-strong text-primary-foreground shadow-gold">
-            <span className="font-serif text-xl font-bold">G</span>
+          <div className="relative flex h-11 w-11 items-center justify-center rounded-sm border border-gold/40 bg-onyx text-gold shadow-gold">
+            <span className="font-arabic text-2xl leading-none">۞</span>
           </div>
           <div className="leading-tight">
             <div className="font-serif text-xl tracking-wide text-ivory">
-              THE GILDED<span className="text-gold"> · </span>AUCTION HOUSE
+              THE GILDED
             </div>
-            <div className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-              Newly Founded · MMXXV
+            <div className="text-[10px] uppercase tracking-[0.3em] text-gold/80">
+              A Community of Compassion
             </div>
           </div>
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
-          <Link
-            to="/"
-            className="text-sm uppercase tracking-widest text-muted-foreground transition-colors hover:text-gold"
-            activeProps={{ className: "text-gold" }}
-            activeOptions={{ exact: true }}
-          >
-            Live Auctions
-          </Link>
-          <a
-            href="/#categories"
-            className="text-sm uppercase tracking-widest text-muted-foreground transition-colors hover:text-gold"
-          >
-            Categories
-          </a>
-          <a
-            href="/#about"
-            className="text-sm uppercase tracking-widest text-muted-foreground transition-colors hover:text-gold"
-          >
-            About
-          </a>
+        <nav className="hidden items-center gap-7 lg:flex">
+          {navLinks.map((l) =>
+            l.href.startsWith("/#") ? (
+              <a
+                key={l.href}
+                href={l.href}
+                className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:text-gold"
+              >
+                {l.label}
+              </a>
+            ) : (
+              <Link
+                key={l.href}
+                to={l.href}
+                className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground transition-colors hover:text-gold"
+                activeProps={{ className: "text-gold" }}
+                activeOptions={{ exact: true }}
+              >
+                {l.label}
+              </Link>
+            ),
+          )}
         </nav>
 
         {/* Account */}
@@ -55,7 +65,7 @@ export function SiteHeader() {
           ) : !user ? (
             <Link
               to="/login"
-              className="inline-flex items-center gap-2 rounded-sm border border-gold/40 px-4 py-2 text-xs uppercase tracking-widest text-ivory transition-colors hover:border-gold hover:text-gold"
+              className="inline-flex items-center gap-2 rounded-sm border border-gold/40 px-4 py-2 text-[11px] uppercase tracking-[0.25em] text-ivory transition-colors hover:border-gold hover:text-gold hover:shadow-gold"
             >
               Sign In
             </Link>
@@ -99,7 +109,7 @@ export function SiteHeader() {
                     onClick={() => setMenuOpen(false)}
                     className="block rounded-sm px-3 py-2 text-xs uppercase tracking-widest text-ivory hover:bg-card"
                   >
-                    Buyer Dashboard
+                    My Participation
                   </Link>
                   {isSeller && (
                     <Link
@@ -107,7 +117,7 @@ export function SiteHeader() {
                       onClick={() => setMenuOpen(false)}
                       className="block rounded-sm px-3 py-2 text-xs uppercase tracking-widest text-ivory hover:bg-card"
                     >
-                      Seller Dashboard
+                      Contribute a Lot
                     </Link>
                   )}
                   {isAdmin && (

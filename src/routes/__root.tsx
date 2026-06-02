@@ -31,27 +31,23 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "The Gilded Auction House — Luxury Auctions in India" },
+      { title: "The Gilded — A Community of Compassion" },
       {
         name: "description",
         content:
-          "A newly founded digital auction house for antiques, classic cars and rare collectibles. Live bidding in INR.",
+          "A premium Islamic community platform. Entry fees from each auction support charitable causes — Zakat, Sadaqah, and service to those in need.",
       },
-      { name: "author", content: "The Gilded Auction House" },
-      { property: "og:title", content: "The Gilded Auction House — Luxury Auctions in India" },
+      { name: "author", content: "The Gilded" },
+      { property: "og:title", content: "The Gilded — A Community of Compassion" },
       {
         property: "og:description",
-        content: "Bid live on antiques, classic cars and rare collectibles.",
+        content:
+          "Where compassion meets action. A community platform for generosity, trust, and service to the Ummah.",
       },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "The Gilded Auction House — Luxury Auctions in India" },
-      { name: "description", content: "The Gilded Auction House is a luxury online marketplace for straight auctions of antiques, cars, and general items." },
-      { property: "og:description", content: "The Gilded Auction House is a luxury online marketplace for straight auctions of antiques, cars, and general items." },
-      { name: "twitter:description", content: "The Gilded Auction House is a luxury online marketplace for straight auctions of antiques, cars, and general items." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5fab332a-17e2-4c41-9c52-9dd62f770cb5/id-preview-d01856d9--7e6d485f-7134-4e94-bbc9-b3cef8775d5c.lovable.app-1777225556935.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5fab332a-17e2-4c41-9c52-9dd62f770cb5/id-preview-d01856d9--7e6d485f-7134-4e94-bbc9-b3cef8775d5c.lovable.app-1777225556935.png" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "The Gilded — A Community of Compassion" },
+      { name: "twitter:description", content: "Where compassion meets action." },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -59,7 +55,7 @@ export const Route = createRootRoute({
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600&family=Caveat:wght@400;600&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap",
       },
     ],
   }),

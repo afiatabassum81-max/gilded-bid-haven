@@ -9,6 +9,8 @@
 @theme inline {
   --font-serif: "Cormorant Garamond", "Playfair Display", Georgia, serif;
   --font-sans: "Inter", system-ui, sans-serif;
+  --font-script: "Caveat", "Cormorant Garamond", cursive;
+  --font-arabic: "Amiri", "Cormorant Garamond", serif;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -145,6 +147,16 @@
 }
 
 @layer utilities {
+  .font-script {
+    font-family: var(--font-script);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .font-arabic {
+    font-family: var(--font-arabic);
+    direction: rtl;
+    font-feature-settings: "liga", "calt";
+  }
   .text-gold {
     color: var(--gold);
   }

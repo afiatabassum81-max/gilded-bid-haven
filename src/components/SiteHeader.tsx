@@ -27,7 +27,7 @@ export function SiteHeader() {
               THE GILDED
             </div>
             <div className="text-[10px] uppercase tracking-[0.3em] text-gold/80">
-              A Community of Compassion
+              Reverse Auction House
             </div>
           </div>
         </Link>

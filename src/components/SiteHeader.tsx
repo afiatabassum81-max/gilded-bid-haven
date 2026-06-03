@@ -10,11 +10,9 @@ export function SiteHeader() {
 
   const navLinks: Array<{ href: string; label: string }> = [
     { href: "/", label: "Home" },
-    { href: "/#causes", label: "Causes" },
-    { href: "/#zakat", label: "Zakat" },
-    { href: "/#sadaqah", label: "Sadaqah" },
+    { href: "/#lots", label: "Lots" },
+    { href: "/#how", label: "How It Works" },
     { href: "/#community", label: "Community" },
-    { href: "/#about", label: "About" },
   ];
 
   return (

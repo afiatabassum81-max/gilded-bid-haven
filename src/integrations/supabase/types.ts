@@ -382,6 +382,7 @@ export type Database = {
           winning_amount: number
         }[]
       }
+      get_public_display_name: { Args: { _user_id: string }; Returns: string }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

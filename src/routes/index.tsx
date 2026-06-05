@@ -73,9 +73,16 @@ function HomePage() {
                 "radial-gradient(ellipse at 30% 20%, oklch(0.74 0.13 85 / 0.18), transparent 55%), radial-gradient(ellipse at 80% 80%, oklch(0.55 0.12 70 / 0.15), transparent 50%)",
             }}
           />
+          {/* ELEMENT 1 — Architectural hall line art */}
+          <DomedHallVector
+            className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-full w-full"
+            // opacity 0.12 via style for precision
+            // @ts-expect-error style allowed
+            style={{ opacity: 0.12 }}
+          />
         </div>
 
-        <div className="relative mx-auto max-w-7xl px-6 py-28 sm:py-36 md:py-40">
+        <div className="relative z-[1] mx-auto max-w-7xl px-6 py-28 sm:py-36 md:py-40">
           <div className="mx-auto max-w-3xl text-center">
             <div className="mb-8 inline-flex items-center gap-3 rounded-sm border border-gold/40 bg-onyx/60 px-4 py-1.5 backdrop-blur">
               <span className="h-1.5 w-1.5 rounded-full bg-gold pulse-gold" />

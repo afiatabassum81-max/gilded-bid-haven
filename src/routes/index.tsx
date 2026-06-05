@@ -14,7 +14,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { CommunitySections } from "@/components/CommunitySections";
 import { listPublicAuctions, type DbAuction } from "@/lib/db-auctions";
-import { DomedHallVector } from "@/components/DecorativeVectors";
+import { DomedHallVector, StarMedallionVector } from "@/components/DecorativeVectors";
 
 export const Route = createFileRoute("/")({
   head: () => ({

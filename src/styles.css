@@ -183,6 +183,9 @@
   .bg-gradient-onyx {
     background: var(--gradient-onyx);
   }
+  .bg-gradient-emerald {
+    background: var(--gradient-emerald);
+  }
   .text-gradient-gold {
     background: var(--gradient-gold-strong);
     -webkit-background-clip: text;

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Megaphone, Heart, Trophy, Sparkles } from "lucide-react";
+import { StarMedallionVector, GivingHandsVector } from "@/components/DecorativeVectors";
 
 type Mission = { title: string | null; body: string | null };
 type Announcement = { id: string; title: string; body: string; created_at: string };

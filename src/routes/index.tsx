@@ -74,12 +74,9 @@ function HomePage() {
             }}
           />
           {/* ELEMENT 1 — Architectural hall line art */}
-          <DomedHallVector
-            className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-full w-full"
-            // opacity 0.12 via style for precision
-            // @ts-expect-error style allowed
-            style={{ opacity: 0.12 }}
-          />
+          <div className="pointer-events-none absolute inset-0 z-0" style={{ opacity: 0.12 }}>
+            <DomedHallVector className="h-full w-full" />
+          </div>
         </div>
 
         <div className="relative z-[1] mx-auto max-w-7xl px-6 py-28 sm:py-36 md:py-40">

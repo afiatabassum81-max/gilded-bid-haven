@@ -4,11 +4,19 @@ import { CompassRoseVector } from "@/components/DecorativeVectors";
 export function SiteFooter() {
   return (
     <footer className="relative overflow-hidden border-t border-gold/20 bg-onyx">
-      <div className="pointer-events-none absolute inset-0 opacity-60">
-        <IslamicPattern opacity={0.08} />
-      </div>
+        <div className="pointer-events-none absolute inset-0 opacity-60">
+          <IslamicPattern opacity={0.08} />
+        </div>
 
-      <div className="relative mx-auto max-w-7xl px-6 py-20">
+        {/* ELEMENT 4 — Compass rose watermark */}
+        <div
+          className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[600px] w-[600px] max-w-[95%] -translate-x-1/2 -translate-y-1/2"
+          style={{ opacity: 0.05 }}
+        >
+          <CompassRoseVector className="h-full w-full" />
+        </div>
+
+        <div className="relative z-[1] mx-auto max-w-7xl px-6 py-20">
         {/* Calligraphy crown */}
         <div className="mb-14 text-center">
           <p

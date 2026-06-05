@@ -14,6 +14,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { CommunitySections } from "@/components/CommunitySections";
 import { listPublicAuctions, type DbAuction } from "@/lib/db-auctions";
+import { DomedHallVector } from "@/components/DecorativeVectors";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -72,9 +73,13 @@ function HomePage() {
                 "radial-gradient(ellipse at 30% 20%, oklch(0.74 0.13 85 / 0.18), transparent 55%), radial-gradient(ellipse at 80% 80%, oklch(0.55 0.12 70 / 0.15), transparent 50%)",
             }}
           />
+          {/* ELEMENT 1 — Architectural hall line art */}
+          <div className="pointer-events-none absolute inset-0 z-0" style={{ opacity: 0.12 }}>
+            <DomedHallVector className="h-full w-full" />
+          </div>
         </div>
 
-        <div className="relative mx-auto max-w-7xl px-6 py-28 sm:py-36 md:py-40">
+        <div className="relative z-[1] mx-auto max-w-7xl px-6 py-28 sm:py-36 md:py-40">
           <div className="mx-auto max-w-3xl text-center">
             <div className="mb-8 inline-flex items-center gap-3 rounded-sm border border-gold/40 bg-onyx/60 px-4 py-1.5 backdrop-blur">
               <span className="h-1.5 w-1.5 rounded-full bg-gold pulse-gold" />

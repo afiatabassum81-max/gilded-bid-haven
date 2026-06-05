@@ -41,8 +41,15 @@ export function CommunitySections() {
     <>
       {/* MISSION */}
       {mission && (
-        <section className="border-t border-gold/20 py-20 sm:py-28">
-          <div className="mx-auto max-w-4xl px-6 text-center">
+        <section className="relative overflow-hidden border-t border-gold/20 py-20 sm:py-28">
+          {/* ELEMENT 3 — Giving hands watermark */}
+          <div
+            className="pointer-events-none absolute left-1/2 top-1/2 z-0 w-[500px] max-w-[90%] -translate-x-1/2 -translate-y-1/2"
+            style={{ opacity: 0.07 }}
+          >
+            <GivingHandsVector className="h-auto w-full" />
+          </div>
+          <div className="relative z-[1] mx-auto max-w-4xl px-6 text-center">
             <p className="text-[11px] uppercase tracking-[0.35em] text-gold">{mission.title ?? "Our Amanah"}</p>
             <h2 className="mt-4 font-serif text-4xl text-ivory sm:text-5xl">A community, not a marketplace.</h2>
             <div className="mx-auto mt-6 h-px w-24 bg-gold" />
@@ -52,8 +59,15 @@ export function CommunitySections() {
       )}
 
       {/* LIVE STATS */}
-      <section className="border-y border-gold/20 bg-onyx/40 py-16">
-        <div className="mx-auto grid max-w-5xl gap-8 px-6 sm:grid-cols-3">
+      <section className="relative overflow-hidden border-y border-gold/20 bg-onyx/40 py-16">
+        {/* ELEMENT 2 — 8-point star medallion watermark */}
+        <div
+          className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[400px] w-[400px] max-w-[90%] -translate-x-1/2 -translate-y-1/2"
+          style={{ opacity: 0.08 }}
+        >
+          <StarMedallionVector className="h-full w-full" />
+        </div>
+        <div className="relative z-[1] mx-auto grid max-w-5xl gap-8 px-6 sm:grid-cols-3">
           <Stat value={stats.auctions} label="Lots Offered" />
           <Stat value={stats.participants} label="Community Members" />
           <Stat value={`₹${stats.raised.toLocaleString("en-IN")}`} label="Given to Causes" />

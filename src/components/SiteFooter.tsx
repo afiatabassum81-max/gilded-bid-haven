@@ -1,4 +1,5 @@
 import { IslamicPattern } from "@/components/IslamicPattern";
+import { CompassRoseVector } from "@/components/DecorativeVectors";
 
 export function SiteFooter() {
   return (

@@ -44,6 +44,9 @@
   --color-crimson: var(--crimson);
   --color-onyx: var(--onyx);
   --color-ivory: var(--ivory);
+  --color-emerald: var(--emerald);
+  --color-emerald-deep: var(--emerald-deep);
+  --color-emerald-soft: var(--emerald-soft);
 }
 
 :root {

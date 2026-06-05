@@ -44,62 +44,70 @@
   --color-crimson: var(--crimson);
   --color-onyx: var(--onyx);
   --color-ivory: var(--ivory);
+  --color-emerald: var(--emerald);
+  --color-emerald-deep: var(--emerald-deep);
+  --color-emerald-soft: var(--emerald-soft);
 }
 
 :root {
   --radius: 0.25rem;
 
-  /* Onyx black canvas */
-  --background: oklch(0.13 0.005 60);
-  --foreground: oklch(0.96 0.01 80);
+  /* Deep emerald canvas */
+  --background: oklch(0.22 0.04 165);
+  --foreground: oklch(0.97 0.012 95);
 
-  --card: oklch(0.17 0.006 60);
-  --card-foreground: oklch(0.96 0.01 80);
+  --card: oklch(0.27 0.045 165);
+  --card-foreground: oklch(0.97 0.012 95);
 
-  --popover: oklch(0.15 0.005 60);
-  --popover-foreground: oklch(0.96 0.01 80);
+  --popover: oklch(0.25 0.045 165);
+  --popover-foreground: oklch(0.97 0.012 95);
 
-  /* Gold #C9A84C primary */
-  --primary: oklch(0.74 0.13 85);
-  --primary-foreground: oklch(0.12 0.005 60);
+  /* Antique gold remains the jewel accent */
+  --primary: oklch(0.78 0.12 88);
+  --primary-foreground: oklch(0.18 0.04 165);
 
-  --secondary: oklch(0.22 0.008 60);
-  --secondary-foreground: oklch(0.95 0.01 80);
+  --secondary: oklch(0.32 0.05 165);
+  --secondary-foreground: oklch(0.96 0.012 95);
 
-  --muted: oklch(0.2 0.006 60);
-  --muted-foreground: oklch(0.65 0.015 75);
+  --muted: oklch(0.3 0.04 165);
+  --muted-foreground: oklch(0.78 0.025 110);
 
-  --accent: oklch(0.74 0.13 85);
-  --accent-foreground: oklch(0.12 0.005 60);
+  --accent: oklch(0.78 0.12 88);
+  --accent-foreground: oklch(0.18 0.04 165);
 
   --destructive: oklch(0.55 0.22 27);
   --destructive-foreground: oklch(0.98 0.01 80);
 
-  --border: oklch(0.28 0.012 75 / 60%);
-  --input: oklch(0.22 0.008 60);
-  --ring: oklch(0.74 0.13 85);
+  --border: oklch(0.78 0.12 88 / 22%);
+  --input: oklch(0.32 0.05 165);
+  --ring: oklch(0.78 0.12 88);
 
-  /* Brand tokens */
-  --gold: oklch(0.74 0.13 85);
-  --gold-soft: oklch(0.85 0.09 88);
-  --gold-deep: oklch(0.58 0.12 75);
-  --amber-warn: oklch(0.78 0.17 70);
-  --crimson: oklch(0.6 0.22 25);
-  --onyx: oklch(0.1 0.005 60);
-  --ivory: oklch(0.97 0.012 85);
+  /* Brand tokens — gold + emerald system */
+  --gold: oklch(0.82 0.11 90);
+  --gold-soft: oklch(0.9 0.08 92);
+  --gold-deep: oklch(0.65 0.12 80);
+  --amber-warn: oklch(0.82 0.16 75);
+  --crimson: oklch(0.62 0.2 25);
+  --onyx: oklch(0.16 0.035 165);
+  --ivory: oklch(0.98 0.012 95);
+  --emerald: oklch(0.32 0.07 162);
+  --emerald-deep: oklch(0.2 0.05 165);
+  --emerald-soft: oklch(0.46 0.08 158);
 
   /* Effects */
-  --gradient-gold: linear-gradient(135deg, oklch(0.85 0.09 88), oklch(0.66 0.13 78));
+  --gradient-gold: linear-gradient(135deg, oklch(0.9 0.08 92), oklch(0.7 0.12 84));
   --gradient-gold-strong: linear-gradient(
     135deg,
-    oklch(0.88 0.08 90) 0%,
-    oklch(0.74 0.13 85) 50%,
-    oklch(0.55 0.12 70) 100%
+    oklch(0.92 0.07 95) 0%,
+    oklch(0.82 0.11 90) 50%,
+    oklch(0.62 0.12 78) 100%
   );
-  --gradient-onyx: linear-gradient(180deg, oklch(0.13 0.005 60) 0%, oklch(0.08 0.003 60) 100%);
-  --shadow-gold: 0 10px 40px -10px oklch(0.74 0.13 85 / 35%);
-  --shadow-elegant: 0 20px 50px -20px oklch(0 0 0 / 70%);
-  --shadow-card: 0 4px 24px -8px oklch(0 0 0 / 60%);
+  --gradient-onyx: linear-gradient(180deg, oklch(0.22 0.04 165) 0%, oklch(0.14 0.03 165) 100%);
+  --gradient-emerald: linear-gradient(180deg, oklch(0.18 0.04 165) 0%, oklch(0.28 0.06 160) 60%, oklch(0.16 0.035 165) 100%);
+  --shadow-gold: 0 10px 40px -10px oklch(0.78 0.12 88 / 35%);
+  --shadow-elegant: 0 20px 60px -20px oklch(0.08 0.02 165 / 80%);
+  --shadow-card: 0 4px 24px -8px oklch(0.06 0.02 165 / 70%);
+
 
   --transition-elegant: all 400ms cubic-bezier(0.22, 1, 0.36, 1);
 
@@ -174,6 +182,9 @@
   }
   .bg-gradient-onyx {
     background: var(--gradient-onyx);
+  }
+  .bg-gradient-emerald {
+    background: var(--gradient-emerald);
   }
   .text-gradient-gold {
     background: var(--gradient-gold-strong);

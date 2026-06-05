@@ -14,7 +14,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { CommunitySections } from "@/components/CommunitySections";
 import { listPublicAuctions, type DbAuction } from "@/lib/db-auctions";
-import { DomedHallVector } from "@/components/DecorativeVectors";
+import { DomedHallVector, StarMedallionVector } from "@/components/DecorativeVectors";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -62,63 +62,129 @@ function HomePage() {
     <div className="min-h-screen bg-background">
       <SiteHeader />
 
-      {/* HERO */}
-      <section className="relative overflow-hidden border-b border-gold/20">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-onyx via-background to-onyx" />
+      {/* HERO — Emerald Cinematic */}
+      <section className="relative isolate overflow-hidden border-b border-gold/25">
+        {/* Layered emerald background */}
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute inset-0 bg-gradient-emerald" />
+          {/* Dawn light wash */}
           <div
-            className="absolute inset-0 opacity-60"
+            className="absolute inset-0"
             style={{
               background:
-                "radial-gradient(ellipse at 30% 20%, oklch(0.74 0.13 85 / 0.18), transparent 55%), radial-gradient(ellipse at 80% 80%, oklch(0.55 0.12 70 / 0.15), transparent 50%)",
+                "radial-gradient(ellipse 90% 60% at 50% 0%, oklch(0.5 0.1 158 / 0.55), transparent 60%), radial-gradient(ellipse 60% 40% at 50% 100%, oklch(0.12 0.03 165 / 0.7), transparent 70%)",
             }}
           />
-          {/* ELEMENT 1 — Architectural hall line art */}
-          <div className="pointer-events-none absolute inset-0 z-0" style={{ opacity: 0.12 }}>
+          {/* Gold glow behind medallion */}
+          <div
+            className="absolute left-1/2 top-1/2 h-[900px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+            style={{
+              background:
+                "radial-gradient(circle, oklch(0.82 0.11 90 / 0.18) 0%, oklch(0.82 0.11 90 / 0.04) 35%, transparent 60%)",
+            }}
+          />
+          {/* Architectural hall line art */}
+          <div
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3"
+            style={{ opacity: 0.1 }}
+          >
             <DomedHallVector className="h-full w-full" />
           </div>
+          {/* Oversized geometric medallion behind headline */}
+          <div
+            className="pointer-events-none absolute left-1/2 top-1/2 h-[680px] w-[680px] max-w-[120%] -translate-x-1/2 -translate-y-1/2"
+            style={{ opacity: 0.18 }}
+          >
+            <StarMedallionVector className="h-full w-full" />
+          </div>
+          {/* Fine grain noise via gradient */}
+          <div
+            className="absolute inset-0 opacity-[0.06] mix-blend-overlay"
+            style={{
+              backgroundImage:
+                "radial-gradient(oklch(0.98 0.012 95) 1px, transparent 1px)",
+              backgroundSize: "3px 3px",
+            }}
+          />
         </div>
 
-        <div className="relative z-[1] mx-auto max-w-7xl px-6 py-28 sm:py-36 md:py-40">
+        {/* Gold hairline frame */}
+        <div className="pointer-events-none absolute inset-x-6 top-6 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent sm:inset-x-12" />
+        <div className="pointer-events-none absolute inset-x-6 bottom-6 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent sm:inset-x-12" />
+        <div className="pointer-events-none absolute inset-y-6 left-6 w-px bg-gradient-to-b from-transparent via-gold/30 to-transparent sm:left-12" />
+        <div className="pointer-events-none absolute inset-y-6 right-6 w-px bg-gradient-to-b from-transparent via-gold/30 to-transparent sm:right-12" />
+
+        <div className="relative mx-auto max-w-7xl px-6 py-32 sm:py-40 md:py-48">
           <div className="mx-auto max-w-3xl text-center">
-            <div className="mb-8 inline-flex items-center gap-3 rounded-sm border border-gold/40 bg-onyx/60 px-4 py-1.5 backdrop-blur">
-              <span className="h-1.5 w-1.5 rounded-full bg-gold pulse-gold" />
-              <span className="text-[11px] uppercase tracking-[0.35em] text-gold">
+            {/* Badge */}
+            <div className="mb-10 inline-flex items-center gap-3 rounded-full border border-gold/40 bg-emerald-deep/70 px-5 py-2 backdrop-blur-md shadow-gold">
+              <span className="relative inline-flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold opacity-60" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-gold" />
+              </span>
+              <span className="text-[10px] uppercase tracking-[0.4em] text-gold">
                 A House of Reverse Auctions
               </span>
             </div>
 
-            <h1 className="font-serif text-5xl leading-[1.05] text-ivory sm:text-6xl md:text-7xl">
+            {/* Headline */}
+            <h1 className="font-serif text-[clamp(2.75rem,8vw,5.75rem)] leading-[1.02] tracking-tight text-ivory">
               The lowest{" "}
-              <span className="text-gradient-gold italic">unique bid</span>
+              <span className="relative inline-block">
+                <span className="text-gradient-gold italic">unique bid</span>
+                <span className="absolute -bottom-1 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/70 to-transparent" />
+              </span>
               <br />
-              wins the lot.
+              <span className="text-ivory/95">wins the lot.</span>
             </h1>
 
-            <p className="mx-auto mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground">
+            {/* Ornament */}
+            <div className="mx-auto mt-8 flex items-center justify-center gap-3 text-gold/70">
+              <span className="h-px w-16 bg-gradient-to-r from-transparent to-gold/70" />
+              <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="1">
+                <path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" />
+              </svg>
+              <span className="h-px w-16 bg-gradient-to-l from-transparent to-gold/70" />
+            </div>
+
+            {/* Paragraph */}
+            <p className="mx-auto mt-8 max-w-xl text-base leading-relaxed text-ivory/75 sm:text-lg">
               One sealed bid. One chance. A single entry fee secures your place
               at the floor — and quietly contributes to those in need.
             </p>
 
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+            {/* CTAs */}
+            <div className="mt-12 flex flex-wrap items-center justify-center gap-4">
               <a
                 href="#lots"
-                className="group inline-flex items-center gap-2 rounded-sm bg-gradient-gold-strong px-8 py-3.5 text-[11px] uppercase tracking-[0.3em] text-primary-foreground shadow-gold transition-transform hover:-translate-y-0.5"
+                className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-sm bg-gradient-gold-strong px-9 py-4 text-[11px] uppercase tracking-[0.32em] text-primary-foreground shadow-gold transition-all hover:-translate-y-0.5 hover:shadow-[0_18px_50px_-12px_oklch(0.82_0.11_90/0.55)]"
               >
-                <Gavel className="h-4 w-4" />
-                View Open Lots
-                <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+                <Gavel className="relative h-4 w-4" />
+                <span className="relative">View Open Lots</span>
+                <ChevronRight className="relative h-4 w-4 transition-transform group-hover:translate-x-1" />
               </a>
               <a
                 href="#how"
-                className="inline-flex items-center gap-2 rounded-sm border border-gold/40 px-8 py-3.5 text-[11px] uppercase tracking-[0.3em] text-ivory transition-colors hover:border-gold hover:text-gold"
+                className="inline-flex items-center gap-2 rounded-sm border border-gold/40 bg-emerald-deep/40 px-9 py-4 text-[11px] uppercase tracking-[0.32em] text-ivory backdrop-blur transition-colors hover:border-gold hover:text-gold"
               >
                 How It Works
               </a>
             </div>
+
+            {/* Trust micro-strip */}
+            <div className="mt-14 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[10px] uppercase tracking-[0.32em] text-ivory/50">
+              <span className="flex items-center gap-2"><span className="h-1 w-1 rounded-full bg-gold/70" /> Sealed Bids</span>
+              <span className="flex items-center gap-2"><span className="h-1 w-1 rounded-full bg-gold/70" /> Verified Lots</span>
+              <span className="flex items-center gap-2"><span className="h-1 w-1 rounded-full bg-gold/70" /> Community First</span>
+            </div>
           </div>
         </div>
+
+        {/* Bottom fade into next section */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-background" />
       </section>
+
 
       {/* SMALL CHARITY MENTION */}
       <section className="border-b border-gold/15 bg-onyx/30">

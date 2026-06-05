@@ -33,7 +33,10 @@ export function SiteFooter() {
 
         <div className="grid gap-12 md:grid-cols-4">
           <div className="md:col-span-2">
-            <div className="font-serif text-2xl text-ivory">
+            <div className="flex items-center gap-3 font-serif text-2xl text-ivory">
+              <span className="inline-block h-8 w-8 text-gold">
+                <CompassRoseVector className="h-full w-full" strokeWidth={1.2} />
+              </span>
               THE GILDED
             </div>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">

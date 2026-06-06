@@ -16,18 +16,21 @@ export function SiteHeader() {
   ];
 
   return (
-    <header className="sticky top-0 z-40 border-b border-gold/20 bg-background/85 backdrop-blur-xl">
+    <header className="sticky top-0 z-40 border-b border-accent/20 bg-background/85 backdrop-blur-xl">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-6">
         <Link to="/" className="group flex items-center gap-3">
-          <div className="relative flex h-11 w-11 items-center justify-center rounded-sm border border-gold/40 bg-onyx text-gold shadow-gold">
-            <span className="font-arabic text-2xl leading-none">۞</span>
+          <div className="relative flex h-11 w-11 items-center justify-center rounded-xl border border-accent/40 bg-card text-accent">
+            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.4">
+              <path d="M12 2 L20 8 L17 20 L7 20 L4 8 Z" />
+              <path d="M12 2 L12 20 M4 8 L20 8 M7 20 L20 8 M17 20 L4 8" opacity="0.45" />
+            </svg>
           </div>
           <div className="leading-tight">
-            <div className="font-serif text-xl tracking-wide text-ivory">
-              THE GILDED
+            <div className="font-serif text-2xl tracking-[0.15em] text-foreground">
+              GEM
             </div>
-            <div className="text-[10px] uppercase tracking-[0.3em] text-gold/80">
-              Reverse Auction House
+            <div className="text-[10px] uppercase tracking-[0.3em] text-accent/80">
+              Community · Trust · Opportunity
             </div>
           </div>
         </Link>

@@ -1,93 +1,58 @@
-import { IslamicPattern } from "@/components/IslamicPattern";
 import { CompassRoseVector } from "@/components/DecorativeVectors";
 
 export function SiteFooter() {
   return (
-    <footer className="relative overflow-hidden border-t border-gold/20 bg-onyx">
-        <div className="pointer-events-none absolute inset-0 opacity-60">
-          <IslamicPattern opacity={0.08} />
-        </div>
+    <footer className="relative overflow-hidden border-t border-accent/20 bg-card">
+      <div
+        className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[600px] w-[600px] max-w-[95%] -translate-x-1/2 -translate-y-1/2"
+        style={{ opacity: 0.05 }}
+      >
+        <CompassRoseVector className="h-full w-full" />
+      </div>
 
-        {/* ELEMENT 4 — Compass rose watermark */}
-        <div
-          className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[600px] w-[600px] max-w-[95%] -translate-x-1/2 -translate-y-1/2"
-          style={{ opacity: 0.05 }}
-        >
-          <CompassRoseVector className="h-full w-full" />
-        </div>
-
-        <div className="relative z-[1] mx-auto max-w-7xl px-6 py-20">
-        {/* Calligraphy crown */}
-        <div className="mb-14 text-center">
-          <p
-            className="font-arabic text-3xl leading-relaxed text-gold/70 sm:text-4xl"
-            lang="ar"
-            dir="rtl"
-          >
-            بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
-          </p>
-          <p className="mt-3 text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
-            In the name of Allah, the Most Compassionate, the Most Merciful
-          </p>
-        </div>
-
+      <div className="relative z-[1] mx-auto max-w-7xl px-6 py-20">
         <div className="grid gap-12 md:grid-cols-4">
           <div className="md:col-span-2">
-            <div className="flex items-center gap-3 font-serif text-2xl text-ivory">
-              <span className="inline-block h-8 w-8 text-gold">
+            <div className="flex items-center gap-3 font-serif text-2xl tracking-[0.15em] text-foreground">
+              <span className="inline-block h-8 w-8 text-accent">
                 <CompassRoseVector className="h-full w-full" strokeWidth={1.2} />
               </span>
-              THE GILDED
+              GEM
             </div>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
-              A community platform built on{" "}
-              <span className="font-script text-lg text-gold">trust</span>,{" "}
-              <span className="font-script text-lg text-gold">generosity</span>{" "}
-              and service. Entry fees from every lot flow toward those in need —
-              transparently, and with dignity.
-            </p>
-            <p
-              className="mt-6 font-arabic text-xl text-gold/80"
-              lang="ar"
-              dir="rtl"
-            >
-              وَتَعَاوَنُوا۟ عَلَى ٱلْبِرِّ وَٱلتَّقْوَىٰ
-            </p>
-            <p className="mt-1 text-[11px] italic tracking-wide text-muted-foreground">
-              "Cooperate in righteousness and piety."
+              A community platform built on opportunity, trust, and giving.
+              Registration fees from every lot support community initiatives —
+              transparently, and with care.
             </p>
           </div>
           <div>
-            <h4 className="font-serif text-sm uppercase tracking-widest text-gold">
+            <h4 className="font-serif text-sm uppercase tracking-[0.25em] text-accent">
               Community
             </h4>
             <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-              <li>Causes We Serve</li>
-              <li>Zakat & Sadaqah</li>
-              <li>Our Amanah (Trust)</li>
-              <li>Success Stories</li>
+              <li>About</li>
+              <li>How It Works</li>
+              <li>Community Impact</li>
+              <li>Contact</li>
             </ul>
           </div>
           <div>
-            <h4 className="font-serif text-sm uppercase tracking-widest text-gold">
-              The House
+            <h4 className="font-serif text-sm uppercase tracking-[0.25em] text-accent">
+              Platform
             </h4>
             <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-              <li>How It Works</li>
-              <li>Transparency Report</li>
-              <li>Contribute a Lot</li>
-              <li>Contact</li>
+              <li>Active Lots</li>
+              <li>Terms</li>
+              <li>Privacy</li>
+              <li>Support</li>
             </ul>
           </div>
         </div>
 
         <div className="hairline-gold mt-14" />
         <div className="mt-6 flex flex-col items-center justify-between gap-2 text-xs text-muted-foreground sm:flex-row">
-          <p>
-            © {new Date().getFullYear()} The Gilded. Built with{" "}
-            <span className="text-gold">Ihsan</span>.
-          </p>
-          <p className="tracking-[0.3em] uppercase">Ummah · Worldwide</p>
+          <p>© {new Date().getFullYear()} GEM. A community platform.</p>
+          <p className="tracking-[0.3em] uppercase">Community · Trust · Opportunity</p>
         </div>
       </div>
     </footer>

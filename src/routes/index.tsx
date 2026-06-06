@@ -3,33 +3,35 @@ import { useEffect, useMemo, useState } from "react";
 import {
   ChevronRight,
   HandHeart,
-  ShieldCheck,
   Loader2,
   Scale,
-  Gavel,
   Lock,
+  Sparkles,
+  Users,
+  Gift,
+  ShieldCheck,
 } from "lucide-react";
 import { ReverseAuctionCard } from "@/components/ReverseAuctionCard";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { CommunitySections } from "@/components/CommunitySections";
+import { OnboardingFlow } from "@/components/OnboardingFlow";
 import { listPublicAuctions, type DbAuction } from "@/lib/db-auctions";
-import { DomedHallVector, StarMedallionVector } from "@/components/DecorativeVectors";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "The Gilded — Reverse Auctions for a Greater Cause" },
+      { title: "GEM — A Community of Opportunity, Trust & Giving" },
       {
         name: "description",
         content:
-          "A premium sealed-bid reverse auction house. The lowest unique bid wins — and every entry fee supports those in need.",
+          "GEM is a community platform built on reverse auctions, trust, and shared benefit. Register for a lot, place one sealed bid, and join a community where opportunity meets giving.",
       },
-      { property: "og:title", content: "The Gilded — Reverse Auctions" },
+      { property: "og:title", content: "GEM — Community · Trust · Opportunity" },
       {
         property: "og:description",
         content:
-          "Lowest unique bid wins. Entry fees support charitable causes for those in need.",
+          "Register for lots, place sealed bids, and participate in a platform built around community and contribution.",
       },
     ],
   }),
@@ -60,155 +62,231 @@ function HomePage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <OnboardingFlow />
       <SiteHeader />
 
-      {/* HERO — Emerald Cinematic */}
-      <section className="relative isolate overflow-hidden border-b border-gold/25">
-        {/* Layered emerald background */}
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute inset-0 bg-gradient-emerald" />
-          {/* Dawn light wash */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(ellipse 90% 60% at 50% 0%, oklch(0.5 0.1 158 / 0.55), transparent 60%), radial-gradient(ellipse 60% 40% at 50% 100%, oklch(0.12 0.03 165 / 0.7), transparent 70%)",
-            }}
-          />
-          {/* Gold glow behind medallion */}
-          <div
-            className="absolute left-1/2 top-1/2 h-[900px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full"
-            style={{
-              background:
-                "radial-gradient(circle, oklch(0.82 0.11 90 / 0.18) 0%, oklch(0.82 0.11 90 / 0.04) 35%, transparent 60%)",
-            }}
-          />
-          {/* Architectural hall line art */}
-          <div
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3"
-            style={{ opacity: 0.1 }}
-          >
-            <DomedHallVector className="h-full w-full" />
+      {/* HERO */}
+      <section className="relative isolate overflow-hidden">
+        <div className="absolute inset-0 -z-10 bg-gradient-emerald" />
+        {/* Architectural line art backdrop */}
+        <svg
+          className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[70%] w-full"
+          viewBox="0 0 1200 500"
+          fill="none"
+          stroke="#8F6B3D"
+          strokeWidth="0.6"
+          opacity="0.18"
+          preserveAspectRatio="xMidYEnd meet"
+        >
+          {/* central dome */}
+          <path d="M540 360 Q600 220 660 360" />
+          <path d="M555 360 Q600 250 645 360" />
+          <line x1="600" y1="220" x2="600" y2="200" />
+          <circle cx="600" cy="195" r="4" />
+          {/* arches left */}
+          {[300, 380, 460].map((x) => (
+            <g key={`l${x}`}>
+              <path d={`M${x} 380 Q${x + 30} 320 ${x + 60} 380`} />
+              <line x1={x} y1="380" x2={x} y2="450" />
+              <line x1={x + 60} y1="380" x2={x + 60} y2="450" />
+            </g>
+          ))}
+          {/* arches right */}
+          {[680, 760, 840].map((x) => (
+            <g key={`r${x}`}>
+              <path d={`M${x} 380 Q${x + 30} 320 ${x + 60} 380`} />
+              <line x1={x} y1="380" x2={x} y2="450" />
+              <line x1={x + 60} y1="380" x2={x + 60} y2="450" />
+            </g>
+          ))}
+          {/* baseline */}
+          <line x1="0" y1="450" x2="1200" y2="450" />
+          {/* geometric stars */}
+          <g transform="translate(180,140)" opacity="0.7">
+            <path d="M0 -22 L6 -6 L22 0 L6 6 L0 22 L-6 6 L-22 0 L-6 -6 Z" />
+          </g>
+          <g transform="translate(1020,160)" opacity="0.7">
+            <path d="M0 -22 L6 -6 L22 0 L6 6 L0 22 L-6 6 L-22 0 L-6 -6 Z" />
+          </g>
+        </svg>
+
+        <div className="relative mx-auto max-w-5xl px-6 py-28 text-center sm:py-36 md:py-44">
+          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-accent/40 bg-card/60 px-4 py-1.5 text-[10px] uppercase tracking-[0.3em] text-accent backdrop-blur">
+            <Sparkles className="h-3 w-3" />
+            A Community Platform
           </div>
-          {/* Oversized geometric medallion behind headline */}
-          <div
-            className="pointer-events-none absolute left-1/2 top-1/2 h-[680px] w-[680px] max-w-[120%] -translate-x-1/2 -translate-y-1/2"
-            style={{ opacity: 0.18 }}
-          >
-            <StarMedallionVector className="h-full w-full" />
-          </div>
-          {/* Fine grain noise via gradient */}
-          <div
-            className="absolute inset-0 opacity-[0.06] mix-blend-overlay"
-            style={{
-              backgroundImage:
-                "radial-gradient(oklch(0.98 0.012 95) 1px, transparent 1px)",
-              backgroundSize: "3px 3px",
-            }}
-          />
-        </div>
 
-        {/* Gold hairline frame */}
-        <div className="pointer-events-none absolute inset-x-6 top-6 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent sm:inset-x-12" />
-        <div className="pointer-events-none absolute inset-x-6 bottom-6 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent sm:inset-x-12" />
-        <div className="pointer-events-none absolute inset-y-6 left-6 w-px bg-gradient-to-b from-transparent via-gold/30 to-transparent sm:left-12" />
-        <div className="pointer-events-none absolute inset-y-6 right-6 w-px bg-gradient-to-b from-transparent via-gold/30 to-transparent sm:right-12" />
+          <h1 className="font-serif text-[clamp(2.5rem,7vw,5rem)] leading-[1.05] tracking-tight text-foreground">
+            Welcome to <span className="text-gradient-gold italic">GEM</span>
+          </h1>
 
-        <div className="relative mx-auto max-w-7xl px-6 py-32 sm:py-40 md:py-48">
-          <div className="mx-auto max-w-3xl text-center">
-            {/* Badge */}
-            <div className="mb-10 inline-flex items-center gap-3 rounded-full border border-gold/40 bg-emerald-deep/70 px-5 py-2 backdrop-blur-md shadow-gold">
-              <span className="relative inline-flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold opacity-60" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-gold" />
-              </span>
-              <span className="text-[10px] uppercase tracking-[0.4em] text-gold">
-                A House of Reverse Auctions
-              </span>
-            </div>
-
-            {/* Headline */}
-            <h1 className="font-serif text-[clamp(2.75rem,8vw,5.75rem)] leading-[1.02] tracking-tight text-ivory">
-              The lowest{" "}
-              <span className="relative inline-block">
-                <span className="text-gradient-gold italic">unique bid</span>
-                <span className="absolute -bottom-1 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/70 to-transparent" />
-              </span>
-              <br />
-              <span className="text-ivory/95">wins the lot.</span>
-            </h1>
-
-            {/* Ornament */}
-            <div className="mx-auto mt-8 flex items-center justify-center gap-3 text-gold/70">
-              <span className="h-px w-16 bg-gradient-to-r from-transparent to-gold/70" />
-              <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="1">
-                <path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" />
-              </svg>
-              <span className="h-px w-16 bg-gradient-to-l from-transparent to-gold/70" />
-            </div>
-
-            {/* Paragraph */}
-            <p className="mx-auto mt-8 max-w-xl text-base leading-relaxed text-ivory/75 sm:text-lg">
-              One sealed bid. One chance. A single entry fee secures your place
-              at the floor — and quietly contributes to those in need.
-            </p>
-
-            {/* CTAs */}
-            <div className="mt-12 flex flex-wrap items-center justify-center gap-4">
-              <a
-                href="#lots"
-                className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-sm bg-gradient-gold-strong px-9 py-4 text-[11px] uppercase tracking-[0.32em] text-primary-foreground shadow-gold transition-all hover:-translate-y-0.5 hover:shadow-[0_18px_50px_-12px_oklch(0.82_0.11_90/0.55)]"
-              >
-                <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-                <Gavel className="relative h-4 w-4" />
-                <span className="relative">View Open Lots</span>
-                <ChevronRight className="relative h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </a>
-              <a
-                href="#how"
-                className="inline-flex items-center gap-2 rounded-sm border border-gold/40 bg-emerald-deep/40 px-9 py-4 text-[11px] uppercase tracking-[0.32em] text-ivory backdrop-blur transition-colors hover:border-gold hover:text-gold"
-              >
-                How It Works
-              </a>
-            </div>
-
-            {/* Trust micro-strip */}
-            <div className="mt-14 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[10px] uppercase tracking-[0.32em] text-ivory/50">
-              <span className="flex items-center gap-2"><span className="h-1 w-1 rounded-full bg-gold/70" /> Sealed Bids</span>
-              <span className="flex items-center gap-2"><span className="h-1 w-1 rounded-full bg-gold/70" /> Verified Lots</span>
-              <span className="flex items-center gap-2"><span className="h-1 w-1 rounded-full bg-gold/70" /> Community First</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom fade into next section */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-background" />
-      </section>
-
-
-      {/* SMALL CHARITY MENTION */}
-      <section className="border-b border-gold/15 bg-onyx/30">
-        <div className="mx-auto flex max-w-5xl items-center justify-center gap-3 px-6 py-5 text-center">
-          <HandHeart className="h-4 w-4 flex-shrink-0 text-gold" />
-          <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground">
-            A portion of every entry fee supports{" "}
-            <span className="text-gold">those in need</span>.
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
+            A community built on opportunity, trust, and giving.
           </p>
+
+          <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground/80">
+            Register for lots, place sealed bids, and participate in a platform
+            designed to benefit both participants and the wider community.
+          </p>
+
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-4">
+            <a
+              href="#lots"
+              className="group inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-[11px] uppercase tracking-[0.3em] text-primary-foreground transition-all hover:-translate-y-0.5 hover:bg-emerald-soft hover:shadow-gold"
+            >
+              Explore Lots
+              <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </a>
+            <a
+              href="#how"
+              className="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-card/40 px-8 py-4 text-[11px] uppercase tracking-[0.3em] text-foreground backdrop-blur transition-colors hover:border-accent hover:text-accent"
+            >
+              How It Works
+            </a>
+          </div>
+
+          <div className="mt-14 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[10px] uppercase tracking-[0.3em] text-muted-foreground/70">
+            <span className="flex items-center gap-2"><Users className="h-3 w-3 text-accent" /> Community First</span>
+            <span className="flex items-center gap-2"><ShieldCheck className="h-3 w-3 text-accent" /> Transparent</span>
+            <span className="flex items-center gap-2"><Gift className="h-3 w-3 text-accent" /> Giving Built In</span>
+          </div>
+        </div>
+
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-background" />
+      </section>
+
+      {/* FEATURED CAMPAIGN — Umrah */}
+      <section className="relative py-20 sm:py-28">
+        <div className="mx-auto max-w-5xl px-6">
+          <div className="mb-10 text-center">
+            <p className="text-[11px] uppercase tracking-[0.35em] text-accent">Featured Campaign</p>
+            <h2 className="mt-3 font-serif text-4xl text-foreground sm:text-5xl">
+              A Chance to Perform Umrah
+            </h2>
+            <div className="mx-auto mt-4 h-px w-24 bg-accent/60" />
+          </div>
+
+          <article className="relative overflow-hidden rounded-2xl border border-accent/30 bg-card shadow-elegant">
+            <div className="grid gap-0 md:grid-cols-5">
+              <div className="relative md:col-span-2 overflow-hidden bg-gradient-emerald">
+                {/* Decorative geometric panel */}
+                <svg viewBox="0 0 200 280" className="absolute inset-0 h-full w-full" fill="none" stroke="#C9A878" strokeWidth="0.7" opacity="0.35">
+                  <path d="M100 30 L130 60 L160 90 L130 120 L100 150 L70 120 L40 90 L70 60 Z" />
+                  <path d="M100 90 L120 110 L100 130 L80 110 Z" />
+                  <circle cx="100" cy="110" r="58" />
+                  <circle cx="100" cy="110" r="42" />
+                  <path d="M60 200 Q100 160 140 200" />
+                  <path d="M70 210 L70 250 M130 210 L130 250" />
+                  <path d="M40 250 L160 250" />
+                  <path d="M85 200 Q100 180 115 200" />
+                </svg>
+                <div className="relative flex h-full min-h-[260px] flex-col justify-end p-8">
+                  <p className="text-[10px] uppercase tracking-[0.3em] text-accent">Umrah Lot</p>
+                  <p className="mt-2 font-serif text-3xl text-foreground">Sacred Journey</p>
+                </div>
+              </div>
+
+              <div className="p-8 md:col-span-3">
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  Register for the Umrah Lot for{" "}
+                  <span className="font-semibold text-foreground">₹99</span>. Place
+                  one sealed bid. When bidding closes, the participant with the
+                  lowest unique bid wins.
+                </p>
+
+                <ul className="mt-6 space-y-2.5 text-sm text-muted-foreground">
+                  {[
+                    "₹99 registration fee per lot",
+                    "Each lot requires a separate registration fee",
+                    "One sealed bid per registration",
+                    "Registration fees are non-refundable",
+                  ].map((p) => (
+                    <li key={p} className="flex items-start gap-2.5">
+                      <span className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-accent" />
+                      <span>{p}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-8 flex flex-wrap items-center gap-3">
+                  <a
+                    href="#lots"
+                    className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-[11px] uppercase tracking-[0.3em] text-primary-foreground transition-all hover:-translate-y-0.5 hover:bg-emerald-soft"
+                  >
+                    View Umrah Lot
+                    <ChevronRight className="h-3.5 w-3.5" />
+                  </a>
+                  <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground/70">
+                    Non-refundable · ₹99
+                  </span>
+                </div>
+              </div>
+            </div>
+          </article>
         </div>
       </section>
 
-      {/* LIVE LOTS */}
-      <section id="lots" className="relative py-24 sm:py-32">
+      {/* HOW GEM WORKS */}
+      <section id="how" className="relative border-y border-accent/20 bg-card/40 py-24">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="text-center">
+            <p className="text-[11px] uppercase tracking-[0.35em] text-accent">How GEM Works</p>
+            <h2 className="mt-3 font-serif text-4xl text-foreground sm:text-5xl">
+              Four simple steps
+            </h2>
+            <div className="mx-auto mt-4 h-px w-24 bg-accent/60" />
+          </div>
+
+          <ol className="mt-14 grid gap-8 md:grid-cols-4">
+            {[
+              { n: "01", t: "Register for a lot", b: "Browse open lots and choose the one you'd like to enter." },
+              { n: "02", t: "Pay the registration fee", b: "A small, non-refundable fee secures your seat in that lot." },
+              { n: "03", t: "Place one sealed bid", b: "Submit a single, private bid. Once placed, it's final." },
+              { n: "04", t: "Lowest unique bid wins", b: "When bidding closes, the lowest bid no one else placed wins." },
+            ].map((s) => (
+              <li key={s.n} className="rounded-2xl border border-border bg-background/40 p-6 transition-colors hover:border-accent/40">
+                <div className="font-serif text-3xl text-accent">{s.n}</div>
+                <h3 className="mt-3 font-serif text-xl text-foreground">{s.t}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.b}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* TRUST STRIP */}
+      <section className="py-16">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="grid gap-10 md:grid-cols-3">
+            <Trust
+              icon={<Scale className="h-5 w-5" />}
+              title="Fair by design"
+              text="The lowest unique bid wins. No surprises, no hidden mechanics — the rules are the rules."
+            />
+            <Trust
+              icon={<Lock className="h-5 w-5" />}
+              title="One sealed bid"
+              text="Pay the registration fee, place one private bid. Outcomes are revealed only when the lot closes."
+            />
+            <Trust
+              icon={<HandHeart className="h-5 w-5" />}
+              title="Giving built in"
+              text="Registration fees support community initiatives — quietly, transparently, on purpose."
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ACTIVE LOTS */}
+      <section id="lots" className="relative border-t border-accent/20 py-24">
         <div className="mx-auto max-w-7xl px-6">
           <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
             <div>
-              <p className="text-[11px] uppercase tracking-[0.35em] text-gold">
-                Open Lots
-              </p>
-              <h2 className="mt-4 font-serif text-4xl text-ivory sm:text-5xl">
-                The floor is open.
+              <p className="text-[11px] uppercase tracking-[0.35em] text-accent">Active Lots</p>
+              <h2 className="mt-3 font-serif text-4xl text-foreground sm:text-5xl">
+                Open for registration
               </h2>
-              <div className="mt-4 h-px w-24 bg-gold" />
+              <div className="mt-4 h-px w-24 bg-accent/60" />
             </div>
 
             {categories.length > 0 && (
@@ -221,10 +299,10 @@ function HomePage() {
                       type="button"
                       onClick={() => setActive(c)}
                       className={
-                        "rounded-sm border px-4 py-2 text-[11px] uppercase tracking-[0.25em] transition-all " +
+                        "rounded-full border px-4 py-2 text-[11px] uppercase tracking-[0.25em] transition-all " +
                         (isActive
-                          ? "border-gold bg-gold text-primary-foreground shadow-gold"
-                          : "border-border text-muted-foreground hover:border-gold/60 hover:text-gold")
+                          ? "border-accent bg-accent text-accent-foreground"
+                          : "border-border text-muted-foreground hover:border-accent/60 hover:text-accent")
                       }
                     >
                       {c === "all" ? "All Lots" : c}
@@ -237,16 +315,12 @@ function HomePage() {
 
           {loading ? (
             <div className="mt-16 flex justify-center py-16">
-              <Loader2 className="h-6 w-6 animate-spin text-gold" />
+              <Loader2 className="h-6 w-6 animate-spin text-accent" />
             </div>
           ) : visible.length === 0 ? (
-            <div className="mt-16 rounded-sm border border-dashed border-gold/30 bg-card/40 px-6 py-20 text-center">
-              <p className="text-[11px] uppercase tracking-[0.35em] text-gold">
-                The Floor Is Quiet
-              </p>
-              <h3 className="mt-4 font-serif text-3xl text-ivory">
-                New lots open soon.
-              </h3>
+            <div className="mt-16 rounded-2xl border border-dashed border-accent/30 bg-card/40 px-6 py-20 text-center">
+              <p className="text-[11px] uppercase tracking-[0.35em] text-accent">No Open Lots Yet</p>
+              <h3 className="mt-3 font-serif text-3xl text-foreground">New lots open soon.</h3>
               <p className="mx-auto mt-3 max-w-md text-sm text-muted-foreground">
                 Sign in to be notified when the next round of lots begins.
               </p>
@@ -258,81 +332,6 @@ function HomePage() {
               ))}
             </div>
           )}
-        </div>
-      </section>
-
-      {/* HOW IT WORKS */}
-      <section
-        id="how"
-        className="relative border-y border-gold/20 bg-onyx/40 py-24 sm:py-32"
-      >
-        <div className="mx-auto max-w-6xl px-6">
-          <div className="text-center">
-            <p className="text-[11px] uppercase tracking-[0.35em] text-gold">
-              How It Works
-            </p>
-            <h2 className="mt-5 font-serif text-4xl text-ivory sm:text-5xl">
-              Four steps to the floor.
-            </h2>
-          </div>
-
-          <ol className="mt-16 grid gap-10 md:grid-cols-4">
-            {[
-              {
-                n: "01",
-                t: "Sign In",
-                b: "Create a verified account to access the auction floor.",
-              },
-              {
-                n: "02",
-                t: "Choose a Lot",
-                b: "Browse open lots and pay the entry fee to participate.",
-              },
-              {
-                n: "03",
-                t: "Place One Bid",
-                b: "Submit a single sealed bid — final, locked, and private.",
-              },
-              {
-                n: "04",
-                t: "Lowest Unique Wins",
-                b: "When the lot closes, the lowest unique bid takes it home.",
-              },
-            ].map((s) => (
-              <li key={s.n} className="relative">
-                <div className="font-serif text-5xl text-gradient-gold">
-                  {s.n}
-                </div>
-                <h3 className="mt-3 font-serif text-2xl text-ivory">{s.t}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  {s.b}
-                </p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      {/* TRUST STRIP */}
-      <section className="border-b border-gold/20 py-20">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="grid gap-12 md:grid-cols-3">
-            <Trust
-              icon={<Scale className="h-6 w-6" />}
-              title="Lowest Unique Wins"
-              text="The winning amount is the one with the fewest participants. Ties resolve to the lowest sum, then the earliest timestamp."
-            />
-            <Trust
-              icon={<Lock className="h-6 w-6" />}
-              title="One Sealed Bid"
-              text="Pay the entry fee once. Place a single sealed bid. Outcomes revealed only when the lot closes."
-            />
-            <Trust
-              icon={<HandHeart className="h-6 w-6" />}
-              title="Giving Built In"
-              text="A portion of every entry fee is directed toward charitable causes for those in need — quietly and transparently."
-            />
-          </div>
         </div>
       </section>
 
@@ -355,10 +354,12 @@ function Trust({
   text: string;
 }) {
   return (
-    <div className="border-l-2 border-gold pl-6">
-      <div className="text-gold">{icon}</div>
-      <h3 className="mt-4 font-serif text-2xl text-ivory">{title}</h3>
-      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{text}</p>
+    <div className="rounded-2xl border border-border bg-card/40 p-6">
+      <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/20 text-accent">
+        {icon}
+      </div>
+      <h3 className="mt-4 font-serif text-2xl text-foreground">{title}</h3>
+      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{text}</p>
     </div>
   );
 }

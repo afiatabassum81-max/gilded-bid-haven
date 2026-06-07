@@ -71,7 +71,13 @@ function HomePage() {
       {/* HERO */}
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10 bg-gradient-emerald" />
-        {/* Architectural line art backdrop */}
+        <img
+          src={heroMosque}
+          alt="Masjid an-Nabawi at dawn"
+          className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover opacity-25"
+        />
+        <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-background/60 via-background/40 to-background" />
+
         <svg
           className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[70%] w-full"
           viewBox="0 0 1200 500"

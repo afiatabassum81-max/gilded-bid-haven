@@ -260,6 +260,35 @@ function HomePage() {
         </div>
       </section>
 
+      {/* COMMUNITY IMAGE BAND */}
+      <section className="relative py-20">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="grid items-center gap-10 md:grid-cols-2">
+            <div className="relative overflow-hidden rounded-2xl border border-accent/20 shadow-elegant">
+              <img
+                src={communityGiving}
+                alt="Hands sharing dates around an emerald table"
+                loading="lazy"
+                className="h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-tr from-background/40 via-transparent to-transparent" />
+            </div>
+            <div>
+              <p className="text-[11px] uppercase tracking-[0.35em] text-accent">Together</p>
+              <h2 className="mt-3 font-serif text-4xl text-foreground sm:text-5xl">
+                More than a bid — a shared table.
+              </h2>
+              <div className="mt-4 h-px w-24 bg-accent/60" />
+              <p className="mt-6 text-base leading-relaxed text-muted-foreground">
+                Every registration adds a seat to our community. The fees you contribute
+                quietly support families and causes that need a hand — turning a small
+                act of participation into something far larger than yourself.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* TRUST STRIP */}
       <section className="py-16">
         <div className="mx-auto max-w-7xl px-6">

@@ -264,12 +264,12 @@ function HomePage() {
       <section className="relative py-20">
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid items-center gap-10 md:grid-cols-2">
-            <div className="relative overflow-hidden rounded-2xl border border-accent/20 shadow-elegant">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-accent/20 shadow-elegant md:aspect-[3/2]">
               <img
                 src={communityGiving}
                 alt="Hands sharing dates around an emerald table"
                 loading="lazy"
-                className="h-full w-full object-cover"
+                className="absolute inset-0 h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-tr from-background/40 via-transparent to-transparent" />
             </div>

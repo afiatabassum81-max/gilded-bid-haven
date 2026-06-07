@@ -17,6 +17,9 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { CommunitySections } from "@/components/CommunitySections";
 import { OnboardingFlow } from "@/components/OnboardingFlow";
 import { listPublicAuctions, type DbAuction } from "@/lib/db-auctions";
+import heroMosque from "@/assets/hero-mosque.jpg";
+import umrahHero from "@/assets/umrah-hero.jpg";
+import communityGiving from "@/assets/community-giving.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({

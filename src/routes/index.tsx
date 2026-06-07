@@ -17,6 +17,9 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { CommunitySections } from "@/components/CommunitySections";
 import { OnboardingFlow } from "@/components/OnboardingFlow";
 import { listPublicAuctions, type DbAuction } from "@/lib/db-auctions";
+import heroMosque from "@/assets/hero-mosque.jpg";
+import umrahHero from "@/assets/umrah-hero.jpg";
+import communityGiving from "@/assets/community-giving.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -68,7 +71,13 @@ function HomePage() {
       {/* HERO */}
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10 bg-gradient-emerald" />
-        {/* Architectural line art backdrop */}
+        <img
+          src={heroMosque}
+          alt="Masjid an-Nabawi at dawn"
+          className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover opacity-25"
+        />
+        <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-background/60 via-background/40 to-background" />
+
         <svg
           className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[70%] w-full"
           viewBox="0 0 1200 500"
@@ -169,22 +178,19 @@ function HomePage() {
           <article className="relative overflow-hidden rounded-2xl border border-accent/30 bg-card shadow-elegant">
             <div className="grid gap-0 md:grid-cols-5">
               <div className="relative md:col-span-2 overflow-hidden bg-gradient-emerald">
-                {/* Decorative geometric panel */}
-                <svg viewBox="0 0 200 280" className="absolute inset-0 h-full w-full" fill="none" stroke="#C9A878" strokeWidth="0.7" opacity="0.35">
-                  <path d="M100 30 L130 60 L160 90 L130 120 L100 150 L70 120 L40 90 L70 60 Z" />
-                  <path d="M100 90 L120 110 L100 130 L80 110 Z" />
-                  <circle cx="100" cy="110" r="58" />
-                  <circle cx="100" cy="110" r="42" />
-                  <path d="M60 200 Q100 160 140 200" />
-                  <path d="M70 210 L70 250 M130 210 L130 250" />
-                  <path d="M40 250 L160 250" />
-                  <path d="M85 200 Q100 180 115 200" />
-                </svg>
-                <div className="relative flex h-full min-h-[260px] flex-col justify-end p-8">
+                <img
+                  src={umrahHero}
+                  alt="Pilgrims at the Kaaba in Makkah"
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover opacity-90"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
+                <div className="relative flex h-full min-h-[320px] flex-col justify-end p-8">
                   <p className="text-[10px] uppercase tracking-[0.3em] text-accent">Umrah Lot</p>
                   <p className="mt-2 font-serif text-3xl text-foreground">Sacred Journey</p>
                 </div>
               </div>
+
 
               <div className="p-8 md:col-span-3">
                 <p className="text-sm leading-relaxed text-muted-foreground">
@@ -251,6 +257,35 @@ function HomePage() {
               </li>
             ))}
           </ol>
+        </div>
+      </section>
+
+      {/* COMMUNITY IMAGE BAND */}
+      <section className="relative py-20">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="grid items-center gap-10 md:grid-cols-2">
+            <div className="relative overflow-hidden rounded-2xl border border-accent/20 shadow-elegant">
+              <img
+                src={communityGiving}
+                alt="Hands sharing dates around an emerald table"
+                loading="lazy"
+                className="h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-tr from-background/40 via-transparent to-transparent" />
+            </div>
+            <div>
+              <p className="text-[11px] uppercase tracking-[0.35em] text-accent">Together</p>
+              <h2 className="mt-3 font-serif text-4xl text-foreground sm:text-5xl">
+                More than a bid — a shared table.
+              </h2>
+              <div className="mt-4 h-px w-24 bg-accent/60" />
+              <p className="mt-6 text-base leading-relaxed text-muted-foreground">
+                Every registration adds a seat to our community. The fees you contribute
+                quietly support families and causes that need a hand — turning a small
+                act of participation into something far larger than yourself.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
